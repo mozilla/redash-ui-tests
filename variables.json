@@ -1,0 +1,16 @@
+{
+  "default": {
+    "users": {
+      "unknown": {
+        "name": "nope",
+        "email": "nope@example.com",
+        "password": "nope"
+      },
+      "ashley": {
+        "name": "Ashley McTest",
+        "email": "ashley@example.com",
+        "password": "REPLACE ME"
+      }
+    }
+  }
+}
