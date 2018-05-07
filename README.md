@@ -69,9 +69,13 @@ tests      Run tests in container
 Every contribution helps to make redash-ui-tests better. Any help is greatly
 appreciated and credit will always be given!
 
-Please check out the [good first issue][first] label for tasks, that are good
+Check out the [good first issue][first] label for tasks, that are good
 candidates for your first contribution to redash-ui-tests!
 
+Please note that this project is released with a [Contributor Code of Conduct][coc].
+By participating in this project you agree to abide by its terms.
+
+[coc]: /CODE_OF_CONDUCT.md
 [docker]: https://docs.docker.com/install/
 [firefox]: https://www.mozilla.org/en-US/firefox/new/
 [first]: https://github.com/hackebrot/redash-ui-tests/labels/good%20first%20issue
