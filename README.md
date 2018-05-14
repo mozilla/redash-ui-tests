@@ -55,7 +55,7 @@ machine.
 Clone the [git][git] repository:
 
 ```text
-git clone git@github.com:hackebrot/redash-ui-tests.git
+git clone git@github.com:mozilla/redash-ui-tests.git
 ```
 
 Navigate to the project:
@@ -98,17 +98,17 @@ tests      Run tests in container
 [contributing]: /.github/CONTRIBUTING.md
 [docker]: https://docs.docker.com/install/
 [firefox]: https://www.mozilla.org/en-US/firefox/new/
-[first]: https://github.com/hackebrot/redash-ui-tests/labels/good%20first%20issue
+[first]: https://github.com/mozilla/redash-ui-tests/labels/good%20first%20issue
 [git]: https://git-scm.com/
-[issues]: https://github.com/hackebrot/redash-ui-tests/issues
-[labels]: https://github.com/hackebrot/redash-ui-tests/labels
+[issues]: https://github.com/mozilla/redash-ui-tests/issues
+[labels]: https://github.com/mozilla/redash-ui-tests/labels
 [makefile]: /Makefile
-[milestones]: https://github.com/hackebrot/redash-ui-tests/milestones
-[projects]: https://github.com/hackebrot/redash-ui-tests/projects
+[milestones]: https://github.com/mozilla/redash-ui-tests/milestones
+[projects]: https://github.com/mozilla/redash-ui-tests/projects
 [pytest]: https://docs.pytest.org/en/latest/
 [python]: https://www.python.org/
 [redash help]: https://redash.io/help/
 [redash]: https://github.com/getredash/redash
 [selenium]: https://pypi.org/project/selenium/
-[tests]: https://github.com/hackebrot/redash-ui-tests/issues?q=is%3Aissue+is%3Aopen+label%3Atests
+[tests]: https://github.com/mozilla/redash-ui-tests/issues?q=is%3Aissue+is%3Aopen+label%3Atests
 [ubuntu]: https://www.ubuntu.com/
