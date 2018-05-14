@@ -93,7 +93,7 @@ clean      Delete pyc files
 tests      Run tests in container
 ```
 
-[contributing]: https://github.com/hackebrot/redash-ui-tests
+[contributing]: https://github.com/hackebrot/redash-ui-tests/blob/master/.github/CONTRIBUTING.md
 [docker]: https://docs.docker.com/install/
 [firefox]: https://www.mozilla.org/en-US/firefox/new/
 [first]: https://github.com/hackebrot/redash-ui-tests/labels/good%20first%20issue
