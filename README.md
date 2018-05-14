@@ -1,16 +1,46 @@
 # redash-ui-tests
 
- :bar_chart: UI tests for Redash
+:bar_chart: UI tests for [Redash][redash]
 
 ## Description
 
-The goal of this project is to add UI test coverage for the [Redash
-project][redash], so that we automatically detect regressions in UI
-functionality and reduce the time we spend in manual testing. This will
-ultimately help us develop more quickly, reduce time between releases and
-free up our QA Engineers to focus on specific test cases and complex issues.
+[Redash][redash] is a open source web-application for working with data.
+Users can query data from different sources, create visualizations and
+dashboards, and share them in their organization. Please check out the
+[knowledge base][redash help] for more info about the Redash project.
 
-## Requirements
+The **redash-ui-tests** project is a community effort to develop automated UI
+tests for Redash. We want to be able to automatically detect UI regressions
+in release candidates and reduce the time spent on manual testing. We will
+gradually add more UI tests for functionality, that is important to our
+users. Check out the [tests issue label][tests] to get an idea about test cases
+that we are planning to automate.
+
+## Contributing
+
+Are you interested in developing UI tests in [Python][python], or helping us
+improve our documentation, or have ideas for how to improve
+**redash-ui-tests**?
+
+Read our [contributing guide][contributing] and check out the [good first
+issue][first] label for tasks, that are good candidates for your first
+contribution to **redash-ui-tests**. Your contributions greatly appreciated!
+Every little bit helps, and credit will always be given!
+
+Please note that **redash-ui-tests** is released with a [Contributor Code of
+Conduct][code of conduct]. By participating in this project you agree to abide
+by its terms.
+
+## Project organization
+
+We use GitHub features to organize our work on **redash-ui-tests**:
+
+- [issues][issues] for keeping track of tasks, enhancements, and bugs
+- [labels][labels] for categorizing issues and pull requests
+- [milestones][milestones] for associating issues with project phases
+- [project boards][projects] for tracking the progress of our work
+
+## Development
 
 We use [Selenium][selenium] for interacting with [Firefox][firefox] and the
 Redash web UI. Tests are developed in [Python 3.6][python] using the
@@ -64,25 +94,21 @@ clean      Delete pyc files
 tests      Run tests in container
 ```
 
-## Contributing
-
-Every contribution helps to make redash-ui-tests better. Any help is greatly
-appreciated and credit will always be given!
-
-Check out the [good first issue][first] label for tasks, that are good
-candidates for your first contribution to redash-ui-tests!
-
-Please note that this project is released with a [Contributor Code of Conduct][coc].
-By participating in this project you agree to abide by its terms.
-
-[coc]: /CODE_OF_CONDUCT.md
+[code of conduct]: /.github/CODE_OF_CONDUCT.md
+[contributing]: /.github/CONTRIBUTING.md
 [docker]: https://docs.docker.com/install/
 [firefox]: https://www.mozilla.org/en-US/firefox/new/
 [first]: https://github.com/hackebrot/redash-ui-tests/labels/good%20first%20issue
 [git]: https://git-scm.com/
+[issues]: https://github.com/hackebrot/redash-ui-tests/issues
+[labels]: https://github.com/hackebrot/redash-ui-tests/labels
 [makefile]: /Makefile
+[milestones]: https://github.com/hackebrot/redash-ui-tests/milestones
+[projects]: https://github.com/hackebrot/redash-ui-tests/projects
 [pytest]: https://docs.pytest.org/en/latest/
 [python]: https://www.python.org/
+[redash help]: https://redash.io/help/
 [redash]: https://github.com/getredash/redash
 [selenium]: https://pypi.org/project/selenium/
+[tests]: https://github.com/hackebrot/redash-ui-tests/issues?q=is%3Aissue+is%3Aopen+label%3Atests
 [ubuntu]: https://www.ubuntu.com/
