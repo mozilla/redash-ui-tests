@@ -1,14 +1,26 @@
 # redash-ui-tests
 
- :bar_chart: UI tests for Redash
+:bar_chart: UI tests for [Redash][redash]
 
 ## Description
 
-The goal of this project is to add UI test coverage for the [Redash
-project][redash], so that we automatically detect regressions in UI
-functionality and reduce the time we spend in manual testing. This will
-ultimately help us develop more quickly, reduce time between releases and
-free up our QA Engineers to focus on specific test cases and complex issues.
+[Redash][redash] is a open source web-application for working with data.
+Users can query data from different sources, create visualizations and
+dashboards, and share them in their organization. Please check out the
+[knowledge base][redash help] for more info about the Redash project.
+
+The **redash-ui-tests** project is a community effort to develop automated UI
+tests for Redash. We want to be able to automatically detect UI regressions
+in release candidates and reduce the time spent on manual testing. We will
+gradually add more UI tests for functionality, that is important to our
+users. Check out the [tests issue label][tests] to get an idea about test cases
+that we are planning to automate.
+
+Are you interested in developing UI tests in [Python][python], or helping us
+improve our documentation, or have ideas for how to improve
+**redash-ui-tests**? Please read our [contributing guide][contributing]. Your
+contributions greatly appreciated! Every little bit helps, and credit will
+always be given!
 
 ## Requirements
 
@@ -86,3 +98,6 @@ By participating in this project you agree to abide by its terms.
 [redash]: https://github.com/getredash/redash
 [selenium]: https://pypi.org/project/selenium/
 [ubuntu]: https://www.ubuntu.com/
+[tests]: https://github.com/hackebrot/redash-ui-tests/issues?q=is%3Aissue+is%3Aopen+label%3Atests
+[redash help]: https://redash.io/help/
+[contributing]: https://github.com/hackebrot/redash-ui-tests
