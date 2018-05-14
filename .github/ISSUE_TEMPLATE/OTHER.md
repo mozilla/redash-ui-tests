@@ -1,6 +1,6 @@
 ---
-name: Bug Report
-about: If something isn't working as expected.
+name: Other
+about: For all other issues or proposals.
 
 ---
 
@@ -12,7 +12,9 @@ project you agree to abide by its terms.
 [code of conduct]: /CODE_OF_CONDUCT.md
 -->
 
-## Bug Report
+## Other
 
-What are you trying to get done, what has happened, what went wrong, and what
-did you expect?
+Would you like to propose a change to **redash-ui-tests**?
+
+Have you run into an issue when running the tests, but don't know what has
+happened?
