@@ -22,6 +22,15 @@ improve our documentation, or have ideas for how to improve
 contributions greatly appreciated! Every little bit helps, and credit will
 always be given!
 
+## Project organization
+
+We use GitHub features to organize our work on **redash-ui-tests**:
+
+- [issues][issues] for keeping track of tasks, enhancements, and bugs
+- [labels][labels] for categorizing issues and pull requests
+- [milestones][milestones] for associating issues with project phases
+- [project boards][projects] for tracking the progress of our work
+
 ## Requirements
 
 We use [Selenium][selenium] for interacting with [Firefox][firefox] and the
@@ -84,20 +93,20 @@ appreciated and credit will always be given!
 Check out the [good first issue][first] label for tasks, that are good
 candidates for your first contribution to redash-ui-tests!
 
-Please note that this project is released with a [Contributor Code of Conduct][coc].
-By participating in this project you agree to abide by its terms.
-
-[coc]: /CODE_OF_CONDUCT.md
+[contributing]: https://github.com/hackebrot/redash-ui-tests
 [docker]: https://docs.docker.com/install/
 [firefox]: https://www.mozilla.org/en-US/firefox/new/
 [first]: https://github.com/hackebrot/redash-ui-tests/labels/good%20first%20issue
 [git]: https://git-scm.com/
+[issues]: https://github.com/hackebrot/redash-ui-tests/issues
+[labels]: https://github.com/hackebrot/redash-ui-tests/labels
 [makefile]: /Makefile
+[milestones]: https://github.com/hackebrot/redash-ui-tests/milestones
+[projects]: https://github.com/hackebrot/redash-ui-tests/projects
 [pytest]: https://docs.pytest.org/en/latest/
 [python]: https://www.python.org/
+[redash help]: https://redash.io/help/
 [redash]: https://github.com/getredash/redash
 [selenium]: https://pypi.org/project/selenium/
-[ubuntu]: https://www.ubuntu.com/
 [tests]: https://github.com/hackebrot/redash-ui-tests/issues?q=is%3Aissue+is%3Aopen+label%3Atests
-[redash help]: https://redash.io/help/
-[contributing]: https://github.com/hackebrot/redash-ui-tests
+[ubuntu]: https://www.ubuntu.com/
