@@ -22,13 +22,14 @@ Are you interested in developing UI tests in [Python][python], or helping us
 improve our documentation, or have ideas for how to improve
 **redash-ui-tests**?
 
-Please read our [contributing guide][contributing] and make sure to follow our
-[code of conduct][coc] when interacting with fellow community members.
+Read our [contributing guide][contributing] and check out the [good first
+issue][first] label for tasks, that are good candidates for your first
+contribution to **redash-ui-tests**. Your contributions greatly appreciated!
+Every little bit helps, and credit will always be given!
 
-Check out the [good first issue][first] label for tasks, that are good
-candidates for your first contribution to **redash-ui-tests**. Your
-contributions greatly appreciated! Every little bit helps, and credit will
-always be given!
+Please note that **redash-ui-tests** is released with a [Contributor Code of
+Conduct][code of conduct]. By participating in this project you agree to abide
+by its terms.
 
 ## Project organization
 
@@ -93,7 +94,8 @@ clean      Delete pyc files
 tests      Run tests in container
 ```
 
-[contributing]: https://github.com/hackebrot/redash-ui-tests/blob/master/.github/CONTRIBUTING.md
+[code of conduct]: /.github/CODE_OF_CONDUCT.md
+[contributing]: /.github/CONTRIBUTING.md
 [docker]: https://docs.docker.com/install/
 [firefox]: https://www.mozilla.org/en-US/firefox/new/
 [first]: https://github.com/hackebrot/redash-ui-tests/labels/good%20first%20issue
