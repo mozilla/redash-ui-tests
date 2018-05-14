@@ -31,7 +31,7 @@ We use GitHub features to organize our work on **redash-ui-tests**:
 - [milestones][milestones] for associating issues with project phases
 - [project boards][projects] for tracking the progress of our work
 
-## Requirements
+## Development
 
 We use [Selenium][selenium] for interacting with [Firefox][firefox] and the
 Redash web UI. Tests are developed in [Python 3.6][python] using the
