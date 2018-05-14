@@ -16,9 +16,17 @@ gradually add more UI tests for functionality, that is important to our
 users. Check out the [tests issue label][tests] to get an idea about test cases
 that we are planning to automate.
 
+## Contributing
+
 Are you interested in developing UI tests in [Python][python], or helping us
 improve our documentation, or have ideas for how to improve
-**redash-ui-tests**? Please read our [contributing guide][contributing]. Your
+**redash-ui-tests**?
+
+Please read our [contributing guide][contributing] and make sure to follow our
+[code of conduct][coc] when interacting with fellow community members.
+
+Check out the [good first issue][first] label for tasks, that are good
+candidates for your first contribution to **redash-ui-tests**. Your
 contributions greatly appreciated! Every little bit helps, and credit will
 always be given!
 
@@ -84,14 +92,6 @@ build      Build Docker image
 clean      Delete pyc files
 tests      Run tests in container
 ```
-
-## Contributing
-
-Every contribution helps to make redash-ui-tests better. Any help is greatly
-appreciated and credit will always be given!
-
-Check out the [good first issue][first] label for tasks, that are good
-candidates for your first contribution to redash-ui-tests!
 
 [contributing]: https://github.com/hackebrot/redash-ui-tests
 [docker]: https://docs.docker.com/install/
