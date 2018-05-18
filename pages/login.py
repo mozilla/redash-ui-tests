@@ -32,7 +32,7 @@ class LoginPage(Page):
         """Return the profile dropdown element."""
         element = self.wait.until(expected.visibility_of_element_located((
             By.CSS_SELECTOR,
-            ".dropdown--profile__username",
+            ".dropdown .dropdown--profile__username",
         )))
         return element.text
 

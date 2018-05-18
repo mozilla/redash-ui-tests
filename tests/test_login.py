@@ -2,7 +2,10 @@
 
 """UI tests for the login page."""
 
+import pytest
 
+
+@pytest.mark.nondestructive
 def test_login_wrong_user_credentials(login_page, unknown_user):
     """Test for a failed login attempt."""
     assert login_page.title == 'Login to Redash'
@@ -13,6 +16,7 @@ def test_login_wrong_user_credentials(login_page, unknown_user):
     assert login_page.title == 'Login to Redash'
 
 
+@pytest.mark.nondestructive
 def test_login(login_page, user):
     """Test for a successful login attempt."""
     assert login_page.title == 'Login to Redash'

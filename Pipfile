@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pytest = "*"
+pytest-base-url = "*"
 pytest-selenium = "*"
 pypom = "*"
 pytest-variables = "*"
