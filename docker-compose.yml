@@ -3,7 +3,7 @@ services:
   ui-tests:
     build: .
     environment:
-      PYTEST_BASE_URL: http://redash:5000
+      REDASH_SERVER_URL: http://redash:5000
     links:
       - "server:redash"
     entrypoint: ./docker-entrypoint.sh

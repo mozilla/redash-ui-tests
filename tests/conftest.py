@@ -21,19 +21,19 @@ class User:
     email = attr.ib(type=str)
 
 
-@pytest.fixture(scope='session', autouse=True)
-def _verify_url(request, base_url, user, org):
+@pytest.fixture(autouse=True)
+def _verify_url(request, server_url, user, org):
     """Verifies the base URL.
     
     This will ping the base url until it returns a 200.
     """
-    verify = request.config.option.verify_base_url
-    if base_url and verify:
+    verify = request.config.option.verify_server_url
+    if server_url and verify:
         session = requests.Session()
         retries = Retry(backoff_factor=0.1,
                         status_forcelist=[500, 502, 503, 504])
-        session.mount(base_url, HTTPAdapter(max_retries=retries))
-        session.get(base_url, verify=False)
+        session.mount(server_url, HTTPAdapter(max_retries=retries))
+        session.get(server_url, verify=False)
 
 
 @pytest.fixture(name='org', scope='session')
@@ -55,7 +55,32 @@ def fixture_user(variables, org):
 
 
 @pytest.fixture(name='login_page')
-def fixture_login_page(selenium, base_url, org):
+def fixture_login_page(selenium, server_url, org):
     """Return a page object model for the login page."""
-    login_page = LoginPage(selenium, base_url, org=org)
+    login_page = LoginPage(selenium, server_url, org=org)
     return login_page.open()
+
+
+@pytest.fixture(name='server_url')
+def fixture_server_url(request):
+    """Return the URL to the Redash server."""
+    return request.config.option.server_url
+
+
+def pytest_addoption(parser):
+    """Add custom options to pytest."""
+    group = parser.getgroup('redash')
+
+    group.addoption(
+        '--server-url',
+        action='store',
+        dest='server_url',
+        type=str,
+        default=os.getenv('REDASH_SERVER_URL', 'http://localhost:5000'),
+        help="URL to the Redash Server",
+    )
+    group.addoption(
+        '--verify-server-url',
+        action='store_true',
+        default=not os.getenv('VERIFY_SERVER_URL', 'false').lower() == 'false',
+        help='verify the server url.')
