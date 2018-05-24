@@ -12,7 +12,7 @@ build: ## Build Docker image
 	@docker build -t "${DOCKER_TAG}" .
 
 .PHONY: docker-ui-tests
-docker-ui-tests: clean build ## Run tests in container
+docker-ui-tests: clean build ## Build and run tests in container
 	@docker run \
 		--net="host" \
 		--env REDASH_SERVER_URL="${REDASH_SERVER_URL}" \
