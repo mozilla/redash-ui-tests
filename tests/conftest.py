@@ -36,6 +36,12 @@ def _verify_url(request, server_url, user, org):
         session.get(server_url, verify=False)
 
 
+@pytest.fixture(name='server_url')
+def fixture_server_url(request):
+    """Return the URL to the Redash server."""
+    return request.config.option.server_url
+
+
 @pytest.fixture(name='org', scope='session')
 def fixture_org():
     """Return the slug of an org."""
@@ -61,12 +67,6 @@ def fixture_login_page(selenium, server_url, org):
     return login_page.open()
 
 
-@pytest.fixture(name='server_url')
-def fixture_server_url(request):
-    """Return the URL to the Redash server."""
-    return request.config.option.server_url
-
-
 def pytest_addoption(parser):
     """Add custom options to pytest."""
     group = parser.getgroup('redash')
@@ -83,4 +83,5 @@ def pytest_addoption(parser):
         '--verify-server-url',
         action='store_true',
         default=not os.getenv('VERIFY_SERVER_URL', 'false').lower() == 'false',
-        help='verify the server url.')
+        help='verify the server url.',
+    )
