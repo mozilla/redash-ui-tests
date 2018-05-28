@@ -11,13 +11,23 @@ clean: ## Delete pyc files
 build: ## Build Docker image
 	@docker build -t "${DOCKER_TAG}" .
 
-.PHONY: tests
-tests: clean build ## Run tests in container
+.PHONY: docker-ui-tests
+docker-ui-tests: clean build ## Build and run tests in container
 	@docker run \
 		--net="host" \
 		--env REDASH_SERVER_URL="${REDASH_SERVER_URL}" \
 		--mount type=bind,source="${CURDIR}",target=/home/user/src \
 		"${DOCKER_TAG}"
+
+.PHONY: ui-tests
+ui-tests: ## Run tests outside of container
+	@pipenv run pytest
+
+.PHONY: setup-redash
+setup-redash: ## Setup redash instance
+	@docker-compose run --rm server create_db
+	@docker-compose run --rm postgres psql -h postgres -U postgres -c "create database tests"
+	@wget -q "${REDASH_SERVER_URL}setup" --post-data="name=Ashley McTest&email=ashley@example.com&password=REPLACE ME&org_name=default" -O /dev/null
 
 .PHONY: bash
 bash: ## Run bash in container as user

@@ -57,4 +57,4 @@ RUN pipenv install --python=$(which python3.6)
 
 ENTRYPOINT [ "pipenv", "run" ]
 
-CMD ["pytest", "--driver", "Firefox", "--variables", "variables.json", "--html", "report.html"]
+CMD ["pytest"]
