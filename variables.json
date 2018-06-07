@@ -10,6 +10,11 @@
         "name": "Ashley McTest",
         "email": "ashley@example.com",
         "password": "REPLACE ME"
+      },
+      "root": {
+	"name": "rootuser",
+	"email": "root@example.com",
+	"password": "IAMROOT"
       }
     }
   }
