@@ -7,7 +7,6 @@ import os
 import attr
 import pytest
 import requests
-import json
 from requests.packages.urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
 
@@ -94,12 +93,12 @@ def create_user(server_url, session, user):
 
     """
     url = server_url + '/api/users'
-    data = json.dumps({
+    data = {
         "name": "{}".format(user.name),
         "email": "{}".format(user.email),
         "no_invite": True,
-    })
-    response = session.post(url, data=data)
+    }
+    response = session.post(url, json=data)
     user_password = {'password': "{}".format(user.password)}
     try:
         invite_url = ('{}{}'.format(server_url,
