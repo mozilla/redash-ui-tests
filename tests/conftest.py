@@ -55,11 +55,10 @@ def fixture_unknown_user(variables, org):
 
 
 @pytest.fixture(name='user', scope='session')
-def fixture_user(variables, org, root_user, server_url):
+def fixture_user(api_session, variables, org, server_url):
     """Return a registered user."""
     user = User(**variables[org]['users']['ashley'])
-    session = _root_login(server_url, root_user)
-    create_user(server_url, session, user)
+    create_user(server_url, api_session, user)
     return user
 
 
@@ -110,7 +109,8 @@ def create_user(server_url, session, user):
         print("User {} was created.".format(user.name))
 
 
-def _root_login(server_url, user):
+@pytest.fixture(name='api_session', scope='session')
+def api_root_login_session(server_url, root_user):
     """Root login.
     
     This is only used to authenticate api calls as admin. It will login as the
@@ -131,8 +131,8 @@ def _root_login(server_url, user):
     url = "{}/login".format(server_url)
     session = requests.Session()
     session.post(url, data={
-        "email": "{}".format(user.email),
-        "password": "{}".format(user.password)}
+        "email": "{}".format(root_user.email),
+        "password": "{}".format(root_user.password)}
     )
     return session
 

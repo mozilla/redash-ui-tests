@@ -19,8 +19,8 @@ docker-ui-tests: clean build ## Build and run tests in container
 		--mount type=bind,source="${CURDIR}",target=/home/user/src \
 		"${DOCKER_TAG}"
 
-.PHONY: clean ui-tests
-ui-tests: ## Run tests outside of container
+.PHONY: ui-tests
+ui-tests: clean ## Run tests outside of container
 	@pipenv run pytest
 
 .PHONY: setup-redash
