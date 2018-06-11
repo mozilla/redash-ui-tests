@@ -55,10 +55,10 @@ def fixture_unknown_user(variables, org):
 
 
 @pytest.fixture(name='user', scope='session')
-def fixture_user(api_session, variables, org, server_url):
+def fixture_user(create_user, variables, org):
     """Return a registered user."""
-    user = User(**variables[org]['users']['ashley'])
-    create_user(server_url, api_session, user)
+    user = create_user(**variables[org]['users']['ashley'])
+    # create_user(server_url, api_session, user)
     return user
 
 
@@ -75,42 +75,54 @@ def fixture_login_page(selenium, server_url, org):
     return login_page.open()
 
 
-def create_user(server_url, session, user):
-    """Create a user via api.
+@pytest.fixture(name='create_user', scope='session')
+def fixture_create_user(root_session, server_url):
+    """Return a function to create a user."""
 
-    This will use the authenticated root user requests session to create a
-    user, accept the invite, and add a password.
+    def create_user(name=None, email=None, password=None):
+        """Create a user via api.
+
+        This will use the authenticated root user requests session to create a
+        user, accept the invite, and add a password.
     
-    Args:
-        server_url: 
-            URL for redash instance
-        session: 
-            Requests login session. 
-            This is needed to allow for user creation.
-        user:
-            User object that will be created.
+        Args:
+            server_url: 
+                URL for redash instance
+            session: 
+                Requests login session. 
+                This is needed to allow for user creation.
+            user:
+                User object that will be created.
 
-    """
-    url = server_url + '/api/users'
-    data = {
-        "name": "{}".format(user.name),
-        "email": "{}".format(user.email),
-        "no_invite": True,
-    }
-    response = session.post(url, json=data)
-    user_password = {'password': "{}".format(user.password)}
-    try:
-        invite_url = ('{}{}'.format(server_url,
-                                    response.json()['invite_link']))
-        session.post(invite_url, data=user_password)
-    except Exception:
-        pass
-    if response.status_code == 200:
-        print("User {} was created.".format(user.name))
+        """
+        data = {
+            "name": name,
+            "email": email,
+            "no_invite": True,
+        }
+        # create user
+        response = root_session.post(
+            f'{server_url}/api/users',
+            json=data)
+        if response.status_code != 200:
+            print(f"unable to create user: {response.text}")
+        # add passwod to user
+        user_password = {'password': password}
+        try:
+            invite_link = (f"{response.json()['invite_link']}")
+            response = root_session.post(f'{server_url}{invite_link}',
+                                         data=user_password)
+        except KeyError:
+            print(f'no invite link found. {response.text}')
+        except Exception:
+            print(f"error sending invite: {response.text}")
+        return User(name=name, email=email, password=password)
+
+    return create_user
 
 
-@pytest.fixture(name='api_session', scope='session')
-def api_root_login_session(server_url, root_user):
+@pytest.fixture(name='root_session', scope='session')
+def fixture_root_session(server_url, root_user):
     """Root login.
     
     This is only used to authenticate api calls as admin. It will login as the
@@ -128,12 +140,14 @@ def api_root_login_session(server_url, root_user):
             Requests session used for api calls.
 
     """
-    url = "{}/login".format(server_url)
+    url = f'{server_url}/login'
     session = requests.Session()
-    session.post(url, data={
-        "email": "{}".format(root_user.email),
-        "password": "{}".format(root_user.password)}
+    response = session.post(url, data={
+        "email": root_user.email,
+        "password": root_user.password}
     )
+    if response.status_code != 200:
+        raise RuntimeError(f"unable to log in as root user: {response.text}")
     return session
 
 
