@@ -11,7 +11,7 @@
         "email": "ashley@example.com",
         "password": "REPLACE ME"
       },
-      "root": {
+      "rootuser": {
 	"name": "rootuser",
 	"email": "root@example.com",
 	"password": "IAMROOT"

@@ -19,6 +19,7 @@ class User:
     name = attr.ib(type=str)
     password = attr.ib(type=str)
     email = attr.ib(type=str)
+    _id = attr.ib(type=int, default=None)
 
 
 @pytest.fixture(autouse=True)
@@ -55,17 +56,39 @@ def fixture_unknown_user(variables, org):
 
 
 @pytest.fixture(name='user', scope='session')
-def fixture_user(create_user, variables, org):
+def fixture_user(create_user, variables, org, users):
     """Return a registered user."""
-    user = create_user(**variables[org]['users']['ashley'])
-    # create_user(server_url, api_session, user)
-    return user
+    user_info = variables[org]['users']['ashley']
+    for user in users:
+        if user.email in user_info['email']:
+            return user
+    return create_user(**user_info)
+
+
+@pytest.fixture(name='users', scope='session')
+def fixture_users(variables, org, root_session, server_url):
+    response = root_session.get(f'{server_url}/api/users')
+    # check if user has any users within db, if not, they must run setup
+    if response.status_code == 404:
+        raise RuntimeError("Root user must be created. "
+                           "Please run 'make setup-redash'")
+    users = []
+    for existing_user in response.json():
+        for user in variables[org]['users'].values():
+            if user['email'] == existing_user['email']:
+                users.append(User(
+                    user['name'],
+                    user['password'],
+                    user['email'],
+                    existing_user['id'],
+                ))
+    return users
 
 
 @pytest.fixture(name='root_user', scope='session')
 def fixture_root_user(variables, org):
     """Return the root user used for setup."""
-    return User(**variables[org]['users']['root'])
+    return User(**variables[org]['users']['rootuser'])
 
 
 @pytest.fixture(name='login_page')
@@ -76,7 +99,7 @@ def fixture_login_page(selenium, server_url, org):
 
 
 @pytest.fixture(name='create_user', scope='session')
-def fixture_create_user(root_session, server_url):
+def fixture_create_user(root_session, server_url, users):
     """Return a function to create a user."""
 
     def create_user(name=None, email=None, password=None):
@@ -100,12 +123,16 @@ def fixture_create_user(root_session, server_url):
             "email": email,
             "no_invite": True,
         }
-        # create user
+        # look up user by email and return if found. If not, create user.
+        reponse = root_session.get(f'{server_url}/api/users')
+        for user in reponse.json():
+            if user['email'] is email:
+                return users[user['id']]
         response = root_session.post(
             f'{server_url}/api/users',
             json=data)
         if response.status_code != 200:
-            print(f"unable to create user: {response.text}")
+            raise RuntimeError(f"unable to create user: {response.text}")
         # add passwod to user
         user_password = {'password': password}
         try:
