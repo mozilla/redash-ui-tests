@@ -60,7 +60,7 @@ def fixture_user(create_user, variables, org, users):
     """Return a registered user."""
     user_info = variables[org]["users"]["ashley"]
     for user in users:
-        if user.email in user_info["email"]:
+        if user.email == user_info["email"]:
             return user
     return create_user(**user_info)
 
