@@ -41,7 +41,7 @@ class UserFactory:
 
 
 @pytest.fixture(name="user_factory", scope="session")
-def user_fixture():
+def fixture_user_factory():
     return UserFactory()
 
 
