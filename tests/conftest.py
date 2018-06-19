@@ -53,8 +53,7 @@ def _verify_url(request, server_url, user, org):
 
     This will ping the base url until it returns a 200.
     """
-    verify = request.config.option.verify_server_url
-    if server_url and verify:
+    if server_url and request.config.option.verify_server_url:
         session = Session()
         retries = Retry(backoff_factor=0.1, status_forcelist=[500, 502, 503, 504])
         session.mount(server_url, HTTPAdapter(max_retries=retries))
@@ -82,19 +81,23 @@ def fixture_unknown_user(variables, org):
 @pytest.fixture(name="user", scope="session")
 def fixture_user(create_user, variables, org, user_factory):
     """Return a registered user."""
+
     user_info = variables[org]["users"]["ashley"]
+
     for user in user_factory:
         if user.email == user_info["email"]:
             return user
+
     return create_user(**user_info)
 
 
 @pytest.fixture(name="users", scope="session")
 def fixture_users(variables, org, root_session, server_url, user_factory):
+    # Check if there are any users in the db, if not, Redash needs to be set up
     response = root_session.get(f"{server_url}/api/users")
-    # check if user has any users within db, if not, they must run setup
     if response.status_code == 404:
         raise RuntimeError("Root user must be created. Please run 'make setup-redash'")
+
     for existing_user in response.json():
         for user in variables[org]["users"].values():
             if user["email"] == existing_user["email"]:
@@ -124,7 +127,7 @@ def fixture_create_user(root_session, server_url, user_factory):
     """Return a function to create a user."""
 
     def create_user(name=None, email=None, password=None):
-        """Create a user via api.
+        """Create a user via the Redash API.
 
         This will use the authenticated root user requests session to create a
         user, accept the invite, and add a password.
@@ -139,7 +142,6 @@ def fixture_create_user(root_session, server_url, user_factory):
                 User object that will be created.
 
         """
-        data = {"name": name, "email": email, "no_invite": True}
         # look up user by email and return if found. If not, create user.
         response = root_session.get(f"{server_url}/api/users")
         for user in response.json():
@@ -148,20 +150,24 @@ def fixture_create_user(root_session, server_url, user_factory):
                     name=name, password=password, email=email, id=user["id"]
                 )
 
-        response = root_session.post(f"{server_url}/api/users", json=data)
+        response = root_session.post(
+            f"{server_url}/api/users",
+            json={"name": name, "email": email, "no_invite": True},
+        )
         if response.status_code != 200:
             raise RuntimeError(f"unable to create user: {response.text}")
+
         # add passwod to user
-        user_password = {"password": password}
         try:
-            invite_link = f"{response.json()['invite_link']}"
+            invite_link = response.json()["invite_link"]
             response = root_session.post(
-                f"{server_url}{invite_link}", data=user_password
+                f"{server_url}{invite_link}", data={"password": password}
             )
         except KeyError:
             raise RuntimeError(f"no invite link found. {response.text}")
         except Exception:
             raise RuntimeError(f"error sending invite: {response.text}")
+
         return user_factory.create_user(name=name, email=email, password=password)
 
     return create_user
