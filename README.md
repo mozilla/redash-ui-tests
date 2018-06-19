@@ -16,6 +16,15 @@ gradually add more UI tests for functionality, that is important to our
 users. Check out the [tests issue label][tests] to get an idea about test cases
 that we are planning to automate.
 
+## Project organization
+
+We use GitHub features to organize our work on **redash-ui-tests**:
+
+- [issues][issues] for keeping track of tasks, enhancements, and bugs
+- [labels][labels] for categorizing issues and pull requests
+- [milestones][milestones] for associating issues with project phases
+- [project boards][projects] for tracking the progress of our work
+
 ## Contributing
 
 Are you interested in developing UI tests in [Python][python], or helping us
@@ -31,14 +40,15 @@ Please note that **redash-ui-tests** is released with a [Contributor Code of
 Conduct][code of conduct]. By participating in this project you agree to abide
 by its terms.
 
-## Project organization
+## Community
 
-We use GitHub features to organize our work on **redash-ui-tests**:
+- Balakrishna Prasad Ganne ([@aayush420][aayush420])
+- Benjamin Forehand Jr ([@jrbenny35][jrbenny35])
+- Raphael Pierzina ([@hackebrot][hackebrot])
 
-- [issues][issues] for keeping track of tasks, enhancements, and bugs
-- [labels][labels] for categorizing issues and pull requests
-- [milestones][milestones] for associating issues with project phases
-- [project boards][projects] for tracking the progress of our work
+[aayush420]: https://github.com/aayush420
+[hackebrot]: https://github.com/hackebrot
+[jrbenny35]: https://github.com/jrbenny35
 
 ## Development
 
