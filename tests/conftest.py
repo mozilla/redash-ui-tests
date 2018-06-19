@@ -25,6 +25,8 @@ class User:
 
 @attr.s
 class UserFactory:
+    """UserFactory provides an interface to create Redash users."""
+
     users = attr.ib(type=User, default=attr.Factory(list))
 
     def __iter__(self):
