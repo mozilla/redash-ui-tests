@@ -40,6 +40,16 @@ Please note that **redash-ui-tests** is released with a [Contributor Code of
 Conduct][code of conduct]. By participating in this project you agree to abide
 by its terms.
 
+## Community
+
+- Benjamin Forehand Jr ([@jrbenny35][jrbenny35])
+- Raphael Pierzina ([@hackebrot][hackebrot])
+- aayush reddy ([@aayush420][aayush420])
+
+[aayush420]: https://github.com/aayush420
+[hackebrot]: https://github.com/hackebrot
+[jrbenny35]: https://github.com/jrbenny35
+
 ## Development
 
 We use [Selenium][selenium] for interacting with [Firefox][firefox] and the
