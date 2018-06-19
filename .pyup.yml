@@ -1,0 +1,11 @@
+update: all # change if auto update is not good for us
+pin: True
+branch: master
+search: True
+requirements:
+  - Pipfile
+  - Pipfile.lock
+label_prs: update
+assignees:
+ - jrbenny35
+schedule: "every week"
