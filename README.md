@@ -24,8 +24,8 @@ improve our documentation, or have ideas for how to improve
 
 Read our [contributing guide][contributing] and check out the [good first
 issue][first] label for tasks, that are good candidates for your first
-contribution to **redash-ui-tests**. Your contributions greatly appreciated!
-Every little bit helps, and credit will always be given!
+contribution to **redash-ui-tests**. Your contributions are greatly
+appreciated! Every little bit helps, and credit will always be given!
 
 Please note that **redash-ui-tests** is released with a [Contributor Code of
 Conduct][code of conduct]. By participating in this project you agree to abide
