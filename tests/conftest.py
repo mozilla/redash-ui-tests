@@ -6,9 +6,9 @@ import os
 
 import attr
 import pytest
-import requests
-from requests.packages.urllib3.util.retry import Retry
+from requests import Session
 from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 
 from pages.login import LoginPage
 
@@ -55,7 +55,7 @@ def _verify_url(request, server_url, user, org):
     """
     verify = request.config.option.verify_server_url
     if server_url and verify:
-        session = requests.Session()
+        session = Session()
         retries = Retry(backoff_factor=0.1, status_forcelist=[500, 502, 503, 504])
         session.mount(server_url, HTTPAdapter(max_retries=retries))
         session.get(server_url, verify=False)
@@ -187,7 +187,7 @@ def fixture_root_session(server_url, root_user):
 
     """
     url = f"{server_url}/login"
-    session = requests.Session()
+    session = Session()
     response = session.post(
         url, data={"email": root_user.email, "password": root_user.password}
     )
