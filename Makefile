@@ -1,23 +1,24 @@
 .DEFAULT_GOAL := help
 
 REDASH_SERVER_URL = "http://127.0.0.1:5000/"
-DOCKER_TAG = "redash-ui-tests"
+DOCKER_NAME ?= "redash-ui-tests"
+DOCKER_TAG ?= "latest"
 
 .PHONY: clean
 clean: ## Delete pyc files
 	@find . -type f -name "*.pyc" -delete
 
 .PHONY: build
-build: ## Build Docker image
-	@docker build -t "${DOCKER_TAG}" .
+build: clean ## Build Docker image
+	@docker build -t "${DOCKER_NAME}:${DOCKER_TAG}" .
 
 .PHONY: docker-ui-tests
-docker-ui-tests: clean build ## Build and run tests in container
+docker-ui-tests: clean ## Run tests in container and copy report.html
 	@docker run \
 		--net="host" \
 		--env REDASH_SERVER_URL="${REDASH_SERVER_URL}" \
-		--mount type=bind,source="${CURDIR}",target=/home/user/src \
-		"${DOCKER_TAG}"
+		"${DOCKER_NAME}:${DOCKER_TAG}"
+	@docker cp ui-tests:/home/user/src/report.html ./report.html
 
 .PHONY: ui-tests
 ui-tests: clean ## Run tests outside of container
@@ -26,12 +27,21 @@ ui-tests: clean ## Run tests outside of container
 .PHONY: setup-redash
 setup-redash: clean ## Setup redash instance
 	@docker-compose run --rm server create_db
-	@docker-compose run --rm postgres psql -h postgres -U postgres -c "create database tests"
-	@docker-compose run --rm server /app/manage.py users create_root root@example.com "rootuser" --password "IAMROOT" --org default
+	@docker-compose run \
+		--rm postgres psql \
+		-h postgres \
+		-U postgres \
+		-c "create database tests"
+	@docker-compose run \
+		--rm server /app/manage.py users create_root \
+		root@example.com \
+		"rootuser" \
+		--password "IAMROOT" \
+		--org default
 
 .PHONY: bash
 bash: ## Run bash in container as user
-	@docker run -i -t --user user "${DOCKER_TAG}" /bin/bash
+	@docker run -i -t --user user "${DOCKER_NAME}:${DOCKER_TAG}" /bin/bash
 
 .PHONY: help
 help:

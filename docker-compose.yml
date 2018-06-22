@@ -1,7 +1,9 @@
 version: '3'
 services:
   ui-tests:
+    image: redash-ui-tests
     build: .
+    container_name: ui-tests
     environment:
       REDASH_SERVER_URL: http://redash:5000
     links:
