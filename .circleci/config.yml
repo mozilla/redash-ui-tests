@@ -54,6 +54,23 @@ jobs:
             make docker-ui-tests
       - store_artifacts:
           path: report.html
+  code_quality:
+    working_directory: ~/redash-ui-tests
+    docker:
+      - image: circleci/python:3.6.5
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: | 
+            pip install pipenv
+            pipenv install --dev
+      - run:
+          name: Flake8
+          command: make flake8
+      - run:
+          name: Formatting check
+          command: make formatting
 workflows:
   version: 2
   build_test_deploy_release:
@@ -73,3 +90,4 @@ workflows:
       #       branches:
       #         ignore: /.*/
       - integration_test
+      - code_quality  

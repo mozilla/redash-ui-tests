@@ -11,6 +11,8 @@ pytest-variables = "*"
 pytest-html = "*"
 
 [dev-packages]
+flake8 = "*"
+black = "*"
 
 [requires]
 python_version = "3.6"

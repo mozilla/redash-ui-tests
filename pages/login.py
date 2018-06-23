@@ -22,7 +22,9 @@ class LoginPage(Page):
     def alert(self):
         """Return the alert element."""
         element = self.wait.until(
-            expected.visibility_of_element_located((By.CSS_SELECTOR, ".alert-danger"))
+            expected.visibility_of_element_located(
+                (By.CSS_SELECTOR, ".alert-danger")
+            )
         )
         return element.text
 
