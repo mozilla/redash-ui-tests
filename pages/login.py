@@ -58,3 +58,6 @@ class LoginPage(Page):
         self.enter_email(email)
         self.enter_password(password)
         self.click_login()
+        from pages.home import HomePage
+
+        return HomePage(self.selenium).wait_for_page_to_load()

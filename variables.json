@@ -12,10 +12,29 @@
         "password": "REPLACE ME"
       },
       "rootuser": {
-	"name": "rootuser",
-	"email": "root@example.com",
-	"password": "IAMROOT"
+      	"name": "rootuser",
+      	"email": "root@example.com",
+      	"password": "IAMROOT"
       }
-    }
+    },
+    "queries": {
+      "default": {
+      	"data_source_id": "1",
+      	"query": "this is a test query.",
+      	"name": "Default Query",
+      	"description": "Test query for redash UI tests.",
+      	"schedule": 60
+      },
+      "ashleys-query": {
+      	"data_source_id": "1",
+      	"query": "this is a test query for ashley.",
+      	"name": "Ashleys Query",
+      	"description": "Query created by Ashley.",
+      	"schedule": 120
+      }
+    },
+    "data-sources": [
+      "ui-tests"
+    ]
   }
 }

@@ -3,6 +3,7 @@
 """Plugin for running UI tests."""
 
 import os
+import json
 
 import attr
 import pytest
@@ -99,8 +100,7 @@ def fixture_users(variables, org, root_session, server_url, user_factory):
     response = root_session.get(f"{server_url}/api/users")
     if response.status_code == 404:
         raise RuntimeError(
-            "Root user must be created. Please run 'make setup-redash'"
-        )
+            "Root user must be created. Please run 'make setup-redash'")
 
     for existing_user in response.json():
         for user in variables[org]["users"].values():
@@ -173,8 +173,7 @@ def fixture_create_user(root_session, server_url, user_factory):
             raise RuntimeError(f"error sending invite: {response.text}")
 
         return user_factory.create_user(
-            name=name, email=email, password=password
-        )
+            name=name, email=email, password=password)
 
     return create_user
 
@@ -206,6 +205,43 @@ def fixture_root_session(server_url, root_user):
     if response.status_code != 200:
         raise RuntimeError(f"unable to log in as root user: {response.text}")
     return session
+
+
+@pytest.fixture(name="create_datasource", scope="session")
+def fixture_create_datasource(root_session, server_url, variables):
+    """Create a data source."""
+
+    # Check if data source exists, if it does, don't recreate it
+    response = root_session.get(f"{server_url}/api/data_sources")
+    for item in response.json():
+        if item["name"] in variables["default"]["data-sources"]:
+            return
+
+    response = root_session.post(
+        f"{server_url}/api/data_sources",
+        json={"options": {}, "name": "ui-test", "type": "url"},
+    )
+    if response.status_code != 200:
+        raise RuntimeError(f"unable to create data source: {response.text}")
+
+
+@pytest.fixture(name="create_queries", scope="session")
+def fixture_create_queries(
+    create_datasource, root_session, server_url, variables
+):
+    """Create 2 queries using the data from variables.json."""
+
+    # Check if query exists, if so, do not create it again
+    response = root_session.get(f"{server_url}/api/queries")
+    for item in response.json()["results"]:
+        for values in variables["default"]["queries"].values():
+            if item["name"] in values.values():
+                return
+
+    for query in variables["default"]["queries"].values():
+        response = root_session.post(f"{server_url}/api/queries", json=query)
+        if response.status_code != 200:
+            raise RuntimeError(f"unable to log create query: {response.text}")
 
 
 def pytest_addoption(parser):
