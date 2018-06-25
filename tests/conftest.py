@@ -3,7 +3,6 @@
 """Plugin for running UI tests."""
 
 import os
-import json
 
 import attr
 import pytest
@@ -100,7 +99,8 @@ def fixture_users(variables, org, root_session, server_url, user_factory):
     response = root_session.get(f"{server_url}/api/users")
     if response.status_code == 404:
         raise RuntimeError(
-            "Root user must be created. Please run 'make setup-redash'")
+            "Root user must be created. Please run 'make setup-redash'"
+        )
 
     for existing_user in response.json():
         for user in variables[org]["users"].values():
@@ -173,7 +173,8 @@ def fixture_create_user(root_session, server_url, user_factory):
             raise RuntimeError(f"error sending invite: {response.text}")
 
         return user_factory.create_user(
-            name=name, email=email, password=password)
+            name=name, email=email, password=password
+        )
 
     return create_user
 
