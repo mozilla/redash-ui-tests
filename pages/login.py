@@ -64,8 +64,8 @@ class LoginPage(Page):
         # Check if home page loads
         # if not user can't login so return login page
         try:
-            home = HomePage(self.selenium).wait_for_page_to_load()
+            home_page = HomePage(self.selenium).wait_for_page_to_load()
         except TimeoutException:
             return self
         else:
-            return home
+            return home_page
