@@ -61,13 +61,11 @@ class LoginPage(Page):
         self.click_login()
         from pages.home import HomePage
 
+        # Check if home page loads
+        # if not user can't login so return login page
         try:
-            self.wait.until(
-                lambda _: self.is_element_displayed(
-                    By.CSS_SELECTOR, ".alert-danger"
-                )
-            )
+            home = HomePage(self.selenium).wait_for_page_to_load()
         except TimeoutException:
-            return HomePage(self.selenium).wait_for_page_to_load()
-        else:
             return self
+        else:
+            return home
