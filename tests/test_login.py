@@ -26,7 +26,7 @@ def test_login(login_page, user):
     """Test for a successful login attempt."""
     assert login_page.title == "Login to Redash"
 
-    login_page.login(email=user.email, password=user.password)
+    home_page = login_page.login(email=user.email, password=user.password)
 
-    assert login_page.profile_dropdown == user.name
-    assert login_page.title == "Redash"
+    assert home_page.profile_dropdown == user.name
+    assert home_page.title == "Redash"

@@ -5,6 +5,7 @@
 from pypom import Page
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as expected
 
 
 class HomePage(Page):
@@ -17,6 +18,21 @@ class HomePage(Page):
             )
         )
         return self
+
+    @property
+    def title(self):
+        """Return the page title."""
+        return self.wait.until(lambda s: self.selenium.title)
+
+    @property
+    def profile_dropdown(self):
+        """Return the profile dropdown element."""
+        element = self.wait.until(
+            expected.visibility_of_element_located(
+                (By.CSS_SELECTOR, ".dropdown--profile__username")
+            )
+        )
+        return element.text
 
     def log_out(self):
         element = self.selenium.find_element_by_css_selector(
