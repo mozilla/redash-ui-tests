@@ -23,11 +23,9 @@ class LoginPage(Page):
     def alert(self):
         """Return the alert element."""
         element = self.wait.until(
-            expected.visibility_of_element_located(
-                (By.CSS_SELECTOR, ".alert-danger")
-            )
+            expected.visibility_of_element_located((By.CSS_SELECTOR, ".alert-danger"))
         )
-        return element
+        return element.text
 
     @property
     def profile_dropdown(self):
@@ -60,10 +58,10 @@ class LoginPage(Page):
         self.enter_password(password)
         self.click_login()
         from pages.home import HomePage
+
         try:
             self.wait.until(
-                lambda _: self.is_element_displayed(
-                    By.CSS_SELECTOR, ".alert-danger")
+                lambda _: self.is_element_displayed(By.CSS_SELECTOR, ".alert-danger")
             )
         except TimeoutException:
             return HomePage(self.selenium).wait_for_page_to_load()

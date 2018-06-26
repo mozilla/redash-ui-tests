@@ -46,6 +46,11 @@ setup-redash: clean ## Setup redash instance
 		"rootuser" \
 		--password "IAMROOT" \
 		--org default
+	@docker-compose run \
+		--rm server /app/manage.py ds new \
+		"ui-tests" \
+		--type "url" \
+		--options '{"title": "uitests"}'
 
 .PHONY: bash
 bash: ## Run bash in container as user

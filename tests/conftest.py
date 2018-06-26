@@ -55,9 +55,7 @@ def _verify_url(request, server_url, user, org):
     """
     if server_url and request.config.option.verify_server_url:
         session = Session()
-        retries = Retry(
-            backoff_factor=0.1, status_forcelist=[500, 502, 503, 504]
-        )
+        retries = Retry(backoff_factor=0.1, status_forcelist=[500, 502, 503, 504])
         session.mount(server_url, HTTPAdapter(max_retries=retries))
         session.get(server_url, verify=False)
 
@@ -98,9 +96,7 @@ def fixture_users(variables, org, root_session, server_url, user_factory):
     # Check if there are any users in the db, if not, Redash needs to be set up
     response = root_session.get(f"{server_url}/api/users")
     if response.status_code == 404:
-        raise RuntimeError(
-            "Root user must be created. Please run 'make setup-redash'"
-        )
+        raise RuntimeError("Root user must be created. Please run 'make setup-redash'")
 
     for existing_user in response.json():
         for user in variables[org]["users"].values():
@@ -172,9 +168,7 @@ def fixture_create_user(root_session, server_url, user_factory):
         except Exception:
             raise RuntimeError(f"error sending invite: {response.text}")
 
-        return user_factory.create_user(
-            name=name, email=email, password=password
-        )
+        return user_factory.create_user(name=name, email=email, password=password)
 
     return create_user
 
@@ -218,18 +212,16 @@ def fixture_create_datasource(root_session, server_url, variables):
         if item["name"] in variables["default"]["data-sources"]:
             return
 
-    response = root_session.post(
-        f"{server_url}/api/data_sources",
-        json={"options": {}, "name": "ui-test", "type": "url"},
-    )
+    # response = root_session.post(
+    #    f"{server_url}/api/data_sources",
+    #    json={"options": {}, "name": "ui-test", "type": "url"},
+    # )
     if response.status_code != 200:
         raise RuntimeError(f"unable to create data source: {response.text}")
 
 
 @pytest.fixture(name="create_queries", scope="session")
-def fixture_create_queries(
-    create_datasource, root_session, server_url, variables
-):
+def fixture_create_queries(root_session, server_url, variables):
     """Create 2 queries using the data from variables.json."""
 
     # Check if query exists, if so, do not create it again
