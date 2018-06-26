@@ -4,6 +4,7 @@
 
 from pypom import Page
 
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 
@@ -26,7 +27,7 @@ class LoginPage(Page):
                 (By.CSS_SELECTOR, ".alert-danger")
             )
         )
-        return element.text
+        return element
 
     @property
     def profile_dropdown(self):
@@ -59,5 +60,12 @@ class LoginPage(Page):
         self.enter_password(password)
         self.click_login()
         from pages.home import HomePage
-
-        return HomePage(self.selenium).wait_for_page_to_load()
+        try:
+            self.wait.until(
+                lambda _: self.is_element_displayed(
+                    By.CSS_SELECTOR, ".alert-danger")
+            )
+        except TimeoutException:
+            return HomePage(self.selenium).wait_for_page_to_load()
+        else:
+            return self
