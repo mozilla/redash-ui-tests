@@ -55,7 +55,9 @@ def _verify_url(request, server_url, user, org):
     """
     if server_url and request.config.option.verify_server_url:
         session = Session()
-        retries = Retry(backoff_factor=0.1, status_forcelist=[500, 502, 503, 504])
+        retries = Retry(
+            backoff_factor=0.1, status_forcelist=[500, 502, 503, 504]
+        )
         session.mount(server_url, HTTPAdapter(max_retries=retries))
         session.get(server_url, verify=False)
 
@@ -96,7 +98,9 @@ def fixture_users(variables, org, root_session, server_url, user_factory):
     # Check if there are any users in the db, if not, Redash needs to be set up
     response = root_session.get(f"{server_url}/api/users")
     if response.status_code == 404:
-        raise RuntimeError("Root user must be created. Please run 'make setup-redash'")
+        raise RuntimeError(
+            "Root user must be created. Please run 'make setup-redash'"
+        )
 
     for existing_user in response.json():
         for user in variables[org]["users"].values():
@@ -168,7 +172,9 @@ def fixture_create_user(root_session, server_url, user_factory):
         except Exception:
             raise RuntimeError(f"error sending invite: {response.text}")
 
-        return user_factory.create_user(name=name, email=email, password=password)
+        return user_factory.create_user(
+            name=name, email=email, password=password
+        )
 
     return create_user
 
@@ -200,24 +206,6 @@ def fixture_root_session(server_url, root_user):
     if response.status_code != 200:
         raise RuntimeError(f"unable to log in as root user: {response.text}")
     return session
-
-
-@pytest.fixture(name="create_datasource", scope="session")
-def fixture_create_datasource(root_session, server_url, variables):
-    """Create a data source."""
-
-    # Check if data source exists, if it does, don't recreate it
-    response = root_session.get(f"{server_url}/api/data_sources")
-    for item in response.json():
-        if item["name"] in variables["default"]["data-sources"]:
-            return
-
-    # response = root_session.post(
-    #    f"{server_url}/api/data_sources",
-    #    json={"options": {}, "name": "ui-test", "type": "url"},
-    # )
-    if response.status_code != 200:
-        raise RuntimeError(f"unable to create data source: {response.text}")
 
 
 @pytest.fixture(name="create_queries", scope="session")

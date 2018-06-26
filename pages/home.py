@@ -27,10 +27,14 @@ class HomePage(Page):
         logout[-1].click()
 
     def search(self, term):
-        element = self.selenium.find_element_by_css_selector(".navbar__search__input")
+        element = self.selenium.find_element_by_css_selector(
+            ".navbar__search__input"
+        )
         element.click()
         element.send_keys(term)
-        button = self.selenium.find_element_by_css_selector(".input-group-btn .btn")
+        button = self.selenium.find_element_by_css_selector(
+            ".input-group-btn .btn"
+        )
         button.click()
         from pages.queries import QueryPage
 
