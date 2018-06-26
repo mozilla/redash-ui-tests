@@ -4,7 +4,6 @@
 
 from pypom import Page
 
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 
@@ -61,11 +60,4 @@ class LoginPage(Page):
         self.click_login()
         from pages.home import HomePage
 
-        # Check if home page loads
-        # if not user can't login so return login page
-        try:
-            home_page = HomePage(self.selenium).wait_for_page_to_load()
-        except TimeoutException:
-            return self
-        else:
-            return home_page
+        HomePage(self.selenium).wait_for_page_to_load()
