@@ -34,7 +34,7 @@ class HomePage(Page):
         )
         return element.text
 
-    def log_out(self):
+    def logout(self):
         element = self.selenium.find_element_by_css_selector(
             ".dropdown .dropdown--profile__username"
         )
