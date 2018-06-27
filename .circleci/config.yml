@@ -26,7 +26,7 @@ jobs:
             docker tag redash-ui-tests "mozilla/redash-ui-tests:${CIRCLE_TAG}"
             docker login -u "${DOCKERHUB_USER}" -p "${DOCKERHUB_PASS}"
             docker push "mozilla/redash-ui-tests:${CIRCLE_TAG}"
-  integration_test:
+  integration_tests:
     working_directory: ~/redash-ui-tests
     machine: true
     steps:
@@ -77,17 +77,17 @@ workflows:
     jobs:
       # - build-deploy:
       #     requires:
-      #       - integration_test
+      #       - integration_tests
       #     filters:
       #       branches:
       #         only: master
       # - build-release:
       #     requires:
-      #       - integration_test
+      #       - integration_tests
       #     filters:
       #       tags:
       #         only: /.*/
       #       branches:
       #         ignore: /.*/
-      - integration_test
+      - integration_tests
       - code_quality  
