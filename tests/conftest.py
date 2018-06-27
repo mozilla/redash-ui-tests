@@ -208,6 +208,23 @@ def fixture_root_session(server_url, root_user):
     return session
 
 
+@pytest.fixture(name="create_queries", scope="session")
+def fixture_create_queries(root_session, server_url, variables):
+    """Create 2 queries using the data from variables.json."""
+
+    # Check if query exists, if so, do not create it again
+    response = root_session.get(f"{server_url}/api/queries")
+    for item in response.json()["results"]:
+        for values in variables["default"]["queries"].values():
+            if item["name"] in values.values():
+                return
+
+    for query in variables["default"]["queries"].values():
+        response = root_session.post(f"{server_url}/api/queries", json=query)
+        if response.status_code != 200:
+            raise RuntimeError(f"unable to log create query: {response.text}")
+
+
 def pytest_addoption(parser):
     """Add custom options to pytest."""
     group = parser.getgroup("redash")

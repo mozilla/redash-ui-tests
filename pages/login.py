@@ -28,16 +28,6 @@ class LoginPage(Page):
         )
         return element.text
 
-    @property
-    def profile_dropdown(self):
-        """Return the profile dropdown element."""
-        element = self.wait.until(
-            expected.visibility_of_element_located(
-                (By.CSS_SELECTOR, ".dropdown--profile__username")
-            )
-        )
-        return element.text
-
     def enter_email(self, email):
         """Enter the given user email."""
         input_email = self.find_element(By.ID, "inputEmail")
@@ -58,3 +48,6 @@ class LoginPage(Page):
         self.enter_email(email)
         self.enter_password(password)
         self.click_login()
+        from pages.home import HomePage
+
+        return HomePage(self.selenium).wait_for_page_to_load()
