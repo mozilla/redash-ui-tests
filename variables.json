@@ -1,40 +1,40 @@
 {
   "default": {
-    "users": {
-      "unknown": {
-        "name": "nope",
-        "email": "nope@example.com",
-        "password": "nope"
+    "data-sources": [
+      "ui-tests"
+    ],
+    "queries": {
+      "ashleys-query": {
+        "data_source_id": "1",
+        "description": "Query created by Ashley.",
+        "name": "Ashleys Query",
+        "query": "this is a test query for ashley.",
+        "schedule": 120
       },
+      "default": {
+        "data_source_id": "1",
+        "description": "Test query for redash UI tests.",
+        "name": "Default Query",
+        "query": "this is a test query.",
+        "schedule": 60
+      }
+    },
+    "users": {
       "ashley": {
-        "name": "Ashley McTest",
         "email": "ashley@example.com",
+        "name": "Ashley McTest",
         "password": "REPLACE ME"
       },
       "rootuser": {
-      	"name": "rootuser",
-      	"email": "root@example.com",
-      	"password": "IAMROOT"
-      }
-    },
-    "queries": {
-      "default": {
-      	"data_source_id": "1",
-      	"query": "this is a test query.",
-      	"name": "Default Query",
-      	"description": "Test query for redash UI tests.",
-      	"schedule": 60
+        "email": "root@example.com",
+        "name": "rootuser",
+        "password": "IAMROOT"
       },
-      "ashleys-query": {
-      	"data_source_id": "1",
-      	"query": "this is a test query for ashley.",
-      	"name": "Ashleys Query",
-      	"description": "Query created by Ashley.",
-      	"schedule": 120
+      "unknown": {
+        "email": "nope@example.com",
+        "name": "nope",
+        "password": "nope"
       }
-    },
-    "data-sources": [
-      "ui-tests"
-    ]
+    }
   }
 }
