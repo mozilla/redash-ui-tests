@@ -1,0 +1,10 @@
+site_name: redash-ui-tests
+site_description: UI tests for Redash
+site_author: redash-ui-tests
+
+theme: readthedocs
+
+repo_url: https://github.com/mozilla/redash-ui-tests
+
+pages:
+- Home: index.md
