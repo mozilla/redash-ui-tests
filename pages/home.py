@@ -11,10 +11,18 @@ from selenium.webdriver.support import expected_conditions as expected
 class HomePage(Page):
     """Page object model for home page."""
 
-    def wait_for_page_to_load(self):
+    _profile_username_dropdown_locator = (
+        By.CSS_SELECTOR,
+        ".dropdown--profile__username",
+    )
+    _navbar_search_input_locator = (By.CLASS_NAME, "navbar__search__input")
+    _search_input_btn_locator = (By.CLASS_NAME, "input-group-btn .btn")
+
+    @property
+    def loaded(self):
         self.wait.until(
             lambda _: self.is_element_displayed(
-                By.CSS_SELECTOR, ".dropdown--profile__username"
+                *self._profile_username_dropdown_locator
             )
         )
         return self
@@ -29,28 +37,26 @@ class HomePage(Page):
         """Return the profile dropdown element."""
         element = self.wait.until(
             expected.visibility_of_element_located(
-                (By.CSS_SELECTOR, ".dropdown--profile__username")
+                self._profile_username_dropdown_locator
             )
         )
         return element.text
 
-    def logout(self):
-        element = self.selenium.find_element_by_css_selector(
-            ".dropdown .dropdown--profile__username"
+    def log_out(self):
+        element = self.selenium.find_element(
+            *self._profile_username_dropdown_locator
         )
         element.click()
         logout = element.find_elements_by_tag_name("li")
         logout[-1].click()
 
     def search(self, term):
-        element = self.selenium.find_element_by_css_selector(
-            ".navbar__search__input"
+        element = self.selenium.find_element(
+            *self._navbar_search_input_locator
         )
         element.click()
         element.send_keys(term)
-        button = self.selenium.find_element_by_css_selector(
-            ".input-group-btn .btn"
-        )
+        button = self.selenium.find_element(*self._search_input_btn_locator)
         button.click()
         from pages.queries import QueryPage
 

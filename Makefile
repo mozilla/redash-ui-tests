@@ -30,7 +30,7 @@ flake8: clean ## Run flake8
 
 .PHONY: formatting
 formatting: clean ## Run python black and show diff
-	@pipenv run black --diff --check --line-length 80 ./
+	@pipenv run black --diff --check --line-length 79 ./
 
 .PHONY: setup-redash
 setup-redash: clean ## Setup redash instance

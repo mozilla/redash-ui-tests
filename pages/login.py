@@ -13,6 +13,11 @@ class LoginPage(Page):
 
     URL_TEMPLATE = "/{org}/login/"
 
+    _alert_locator = (By.CSS_SELECTOR, ".alert-danger")
+    _input_email_locator = (By.ID, "inputEmail")
+    _input_password_locator = (By.ID, "inputPassword")
+    _login_buttton_locator = (By.CSS_SELECTOR, "button[type='submit']")
+
     @property
     def title(self):
         """Return the page title."""
@@ -22,25 +27,23 @@ class LoginPage(Page):
     def alert(self):
         """Return the alert element."""
         element = self.wait.until(
-            expected.visibility_of_element_located(
-                (By.CSS_SELECTOR, ".alert-danger")
-            )
+            expected.visibility_of_element_located(self._alert_locator)
         )
         return element.text
 
     def enter_email(self, email):
         """Enter the given user email."""
-        input_email = self.find_element(By.ID, "inputEmail")
+        input_email = self.find_element(*self._input_email_locator)
         input_email.send_keys(email)
 
     def enter_password(self, password):
         """Enter the given user password."""
-        input_password = self.find_element(By.ID, "inputPassword")
+        input_password = self.find_element(*self._input_password_locator)
         input_password.send_keys(password)
 
     def click_login(self):
         """Click the login button."""
-        btn = self.find_element(By.CSS_SELECTOR, "button[type='submit']")
+        btn = self.find_element(*self._login_buttton_locator)
         btn.click()
 
     def login(self, email="", password=""):
