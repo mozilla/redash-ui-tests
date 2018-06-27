@@ -46,3 +46,4 @@ Check out who has already contributed to **redash-ui-tests**
 [redash help]: https://redash.io/help/
 [redash]: https://github.com/getredash/redash
 [tests]: https://github.com/mozilla/redash-ui-tests/issues?q=is%3Aissue+is%3Aopen+label%3Atests
+[docs]: https://redash-ui-tests.readthedocs.io/en/latest/
