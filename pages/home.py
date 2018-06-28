@@ -30,7 +30,7 @@ class HomePage(Page):
     )
 
     @property
-    def loaded(self) -> HomePage:
+    def loaded(self) -> typing.Any:
         self.wait.until(
             lambda _: self.is_element_displayed(
                 *self._profile_username_dropdown_locator
