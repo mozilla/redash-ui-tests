@@ -3,12 +3,16 @@
 """UI tests for the login page."""
 
 import pytest
-
 from selenium.common.exceptions import TimeoutException
+
+from models.user import User
+from pages.login import LoginPage
 
 
 @pytest.mark.nondestructive
-def test_login_wrong_user_credentials(login_page, unknown_user):
+def test_login_wrong_user_credentials(
+    login_page: LoginPage, unknown_user: User
+) -> None:
     """Test for a failed login attempt."""
     assert login_page.title == "Login to Redash"
 
@@ -22,7 +26,7 @@ def test_login_wrong_user_credentials(login_page, unknown_user):
 
 
 @pytest.mark.nondestructive
-def test_login(login_page, user):
+def test_login(login_page: LoginPage, user: User) -> None:
     """Test for a successful login attempt."""
     assert login_page.title == "Login to Redash"
 
