@@ -2,6 +2,10 @@
 
 """Page object models for Redash."""
 
+import typing
+
+import attr
+
 
 @attr.s(auto_attribs=True)
 class User:
