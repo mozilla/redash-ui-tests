@@ -8,3 +8,13 @@ repo_url: https://github.com/mozilla/redash-ui-tests
 
 pages:
 - Home: index.md
+- About:
+  - Community: about/community.md
+  - Project organization: about/project-organization.md
+- Tutorials:
+  - Getting started: tutorials/getting-started.md
+  - Developing tests: tutorials/developing-tests.md
+- Reference:
+  - Overview pytest fixtures: reference/pytest-fixtures.md
+- How-to guides:
+  - Test selection: how-to/select-tests.md
