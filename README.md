@@ -18,7 +18,7 @@ that we are planning to automate.
 
 Please check out the [documentation][docs] for more information! :memo:
 
-# Contributing
+## Contributing
 
 Are you interested in developing UI tests in [Python][python], or helping us
 improve our documentation, or have ideas for how to improve
