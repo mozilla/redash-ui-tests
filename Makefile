@@ -32,6 +32,10 @@ flake8: clean ## Run flake8
 formatting: clean ## Run python black and show diff
 	@pipenv run black --diff --check --line-length 79 ./
 
+.PHONY: mypy
+mypy: clean ## Run mypy
+	@pipenv run mypy .
+
 .PHONY: setup-redash
 setup-redash: clean ## Setup redash instance
 	@docker-compose run --rm server create_db
