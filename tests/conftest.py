@@ -3,6 +3,7 @@
 """Plugin for running UI tests."""
 
 import os
+import typing
 
 import attr
 import pytest
@@ -13,42 +14,42 @@ from requests.packages.urllib3.util.retry import Retry
 from pages.login import LoginPage
 
 
-@attr.s
+@attr.s(auto_attribs=True)
 class User:
     """User represents a Redash user."""
 
-    name = attr.ib(type=str)
-    password = attr.ib(type=str)
-    email = attr.ib(type=str)
-    _id = attr.ib(type=int, default=None)
+    name: str
+    password: str
+    email: str
+    _id: int
 
 
-@attr.s
+@attr.s(auto_attribs=True)
 class UserFactory:
     """UserFactory provides an interface to create Redash users."""
 
-    users = attr.ib(type=list, default=attr.Factory(list))
+    users: typing.List[User] = attr.Factory(list)
 
-    def __iter__(self):
+    def __iter__(self) -> typing.Generator[User, None, None]:
         for user in self.users:
             yield user
 
-    def __contains__(self, user):
+    def __contains__(self, user: User) -> bool:
         return user in self.users
 
-    def create_user(self, **kwargs):
+    def create_user(self, **kwargs: typing.Any) -> User:
         user = User(**kwargs)
         self.users.append(user)
         return user
 
 
 @pytest.fixture(name="user_factory", scope="session")
-def fixture_user_factory():
+def fixture_user_factory() -> UserFactory:
     return UserFactory()
 
 
 @pytest.fixture(autouse=True)
-def _verify_url(request, server_url, user, org):
+def _verify_url(request, server_url: str, user: User, org: str) -> None:
     """Verifies the base URL.
 
     This will ping the base url until it returns a 200.
@@ -63,25 +64,30 @@ def _verify_url(request, server_url, user, org):
 
 
 @pytest.fixture(name="server_url", scope="session")
-def fixture_server_url(request):
+def fixture_server_url(request) -> str:
     """Return the URL to the Redash server."""
     return request.config.option.server_url
 
 
 @pytest.fixture(name="org", scope="session")
-def fixture_org():
+def fixture_org() -> str:
     """Return the slug of an org."""
     return "default"
 
 
 @pytest.fixture(name="unknown_user")
-def fixture_unknown_user(variables, org):
+def fixture_unknown_user(variables: typing.Dict, org: str) -> User:
     """Return a user that is not registered."""
     return User(**variables[org]["users"]["unknown"])
 
 
 @pytest.fixture(name="user", scope="session")
-def fixture_user(create_user, variables, org, user_factory):
+def fixture_user(
+    create_user: typing.Callable,
+    variables: typing.Dict,
+    org: str,
+    user_factory: UserFactory,
+) -> User:
     """Return a registered user."""
 
     user_info = variables[org]["users"]["ashley"]
@@ -94,7 +100,13 @@ def fixture_user(create_user, variables, org, user_factory):
 
 
 @pytest.fixture(name="users", scope="session")
-def fixture_users(variables, org, root_session, server_url, user_factory):
+def fixture_users(
+    variables: typing.Dict,
+    org: str,
+    root_session,
+    server_url: str,
+    user_factory: UserFactory,
+) -> typing.List[User]:
     # Check if there are any users in the db, if not, Redash needs to be set up
     response = root_session.get(f"{server_url}/api/users")
     if response.status_code == 404:
@@ -112,25 +124,31 @@ def fixture_users(variables, org, root_session, server_url, user_factory):
                     id=existing_user["id"],
                 )
 
+    return user_factory.users
+
 
 @pytest.fixture(name="root_user", scope="session")
-def fixture_root_user(variables, org):
+def fixture_root_user(variables: typing.Dict, org: str) -> User:
     """Return the root user used for setup."""
     return User(**variables[org]["users"]["rootuser"])
 
 
 @pytest.fixture(name="login_page")
-def fixture_login_page(selenium, server_url, org):
+def fixture_login_page(selenium, server_url: str, org: str) -> LoginPage:
     """Return a page object model for the login page."""
     login_page = LoginPage(selenium, server_url, org=org)
     return login_page.open()
 
 
 @pytest.fixture(name="create_user", scope="session")
-def fixture_create_user(root_session, server_url, user_factory):
+def fixture_create_user(
+    root_session: Session, server_url: str, user_factory: UserFactory
+) -> typing.Callable:
     """Return a function to create a user."""
 
-    def create_user(name=None, email=None, password=None):
+    def create_user(
+        name: str = "", email: str = "", password: str = ""
+    ) -> User:
         """Create a user via the Redash API.
 
         This will use the authenticated root user requests session to create
@@ -180,7 +198,7 @@ def fixture_create_user(root_session, server_url, user_factory):
 
 
 @pytest.fixture(name="root_session", scope="session")
-def fixture_root_session(server_url, root_user):
+def fixture_root_session(server_url: str, root_user: User) -> Session:
     """Root login.
 
     This is only used to authenticate api calls as admin. It will login as the
@@ -209,7 +227,9 @@ def fixture_root_session(server_url, root_user):
 
 
 @pytest.fixture(name="create_queries", scope="session")
-def fixture_create_queries(root_session, server_url, variables):
+def fixture_create_queries(
+    root_session: Session, server_url: str, variables: typing.Dict
+) -> None:
     """Create 2 queries using the data from variables.json."""
 
     # Check if query exists, if so, do not create it again
@@ -225,7 +245,7 @@ def fixture_create_queries(root_session, server_url, variables):
             raise RuntimeError(f"unable to log create query: {response.text}")
 
 
-def pytest_addoption(parser):
+def pytest_addoption(parser) -> None:
     """Add custom options to pytest."""
     group = parser.getgroup("redash")
 
