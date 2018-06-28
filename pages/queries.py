@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Page model for home page."""
+"""Page model for the queries page."""
 
 from pypom import Page, Region
 
