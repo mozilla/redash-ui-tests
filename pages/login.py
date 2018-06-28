@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as expected
 
 from pages.home import HomePage
 
-Selector = typing.Tuple[typing.Any, str]
+Locator = typing.Tuple[typing.Any, str]
 
 
 class LoginPage(Page):
@@ -18,13 +18,13 @@ class LoginPage(Page):
 
     URL_TEMPLATE: str = "/{org}/login/"
 
-    _alert_locator: Selector = (By.CSS_SELECTOR, ".alert-danger")
-    _input_email_locator: Selector = (By.ID, "inputEmail")
+    _alert_locator: Locator = (By.CSS_SELECTOR, ".alert-danger")
+    _input_email_locator: Locator = (By.ID, "inputEmail")
     _input_password_locator: typing.Tuple[typing.Any, str] = (
         By.ID,
         "inputPassword",
     )
-    _login_buttton_locator: Selector = (
+    _login_buttton_locator: Locator = (
         By.CSS_SELECTOR,
         "button[type='submit']",
     )

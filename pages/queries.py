@@ -7,15 +7,12 @@ import typing
 from pypom import Page, Region
 from selenium.webdriver.common.by import By
 
-Selector = typing.Tuple[typing.Any, str]
+Locator = typing.Tuple[typing.Any, str]
 
 
 class QueryDetailPage(Page):
 
-    _query_description_locator: Selector = (
-        By.CSS_SELECTOR,
-        ".edit-in-place p",
-    )
+    _query_description_locator: Locator = (By.CSS_SELECTOR, ".edit-in-place p")
 
     @property
     def description(self) -> typing.Any:
@@ -24,7 +21,7 @@ class QueryDetailPage(Page):
 
 class QueryRow(Region):
 
-    _query_link_locator: Selector = (By.CSS_SELECTOR, "td a")
+    _query_link_locator: Locator = (By.CSS_SELECTOR, "td a")
 
     @property
     def link(self) -> typing.Any:
@@ -37,8 +34,8 @@ class QueryRow(Region):
 
 class QueryPage(Page):
 
-    _query_table_locator: Selector = (By.TAG_NAME, "table")
-    _table_row_locator: Selector = (By.TAG_NAME, "tr")
+    _query_table_locator: Locator = (By.TAG_NAME, "table")
+    _table_row_locator: Locator = (By.TAG_NAME, "tr")
 
     @property
     def queries(self) -> typing.List[QueryRow]:

@@ -10,21 +10,21 @@ from selenium.webdriver.support import expected_conditions as expected
 
 from pages.queries import QueryPage
 
-Selector = typing.Tuple[typing.Any, str]
+Locator = typing.Tuple[typing.Any, str]
 
 
 class HomePage(Page):
     """Page object model for home page."""
 
-    _profile_username_dropdown_locator: Selector = (
+    _profile_username_dropdown_locator: Locator = (
         By.CSS_SELECTOR,
         ".dropdown--profile__username",
     )
-    _navbar_search_input_locator: Selector = (
+    _navbar_search_input_locator: Locator = (
         By.CLASS_NAME,
         "navbar__search__input",
     )
-    _search_input_btn_locator: Selector = (
+    _search_input_btn_locator: Locator = (
         By.CLASS_NAME,
         "input-group-btn .btn",
     )
