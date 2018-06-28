@@ -10,7 +10,7 @@ class User:
     name: str
     password: str
     email: str
-    _id: int
+    _id: int = 0
 
 
 @attr.s(auto_attribs=True)
