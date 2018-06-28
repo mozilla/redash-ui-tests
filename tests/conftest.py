@@ -54,7 +54,7 @@ def fixture_unknown_user(variables: typing.Dict, org: str) -> User:
 
 @pytest.fixture(name="user", scope="session")
 def fixture_user(
-    create_user: typing.Callable,
+    create_user: typing.Callable[..., User],
     variables: typing.Dict,
     org: str,
     user_factory: UserFactory,
