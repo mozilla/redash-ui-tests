@@ -44,4 +44,4 @@ class QueryPage(Page):
     def queries(self) -> typing.List[QueryRow]:
         table = self.selenium.find_element(*self._query_table_locator)
         items = table.find_elements(*self._table_row_locator)
-        return [self.QueryRow(self, item) for item in items]
+        return [QueryRow(self, item) for item in items]
