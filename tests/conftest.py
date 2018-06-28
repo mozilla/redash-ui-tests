@@ -35,9 +35,9 @@ def _verify_url(request, server_url: str, user: User, org: str) -> None:
 
 
 @pytest.fixture(name="server_url", scope="session")
-def fixture_server_url(request) -> str:
+def fixture_server_url(request) -> typing.Any:
     """Return the URL to the Redash server."""
-    return request.config.option.server_url
+    return request.config.getoption("server_url")
 
 
 @pytest.fixture(name="org", scope="session")
