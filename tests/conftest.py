@@ -105,7 +105,7 @@ def fixture_root_user(variables: typing.Dict, org: str) -> User:
 
 
 @pytest.fixture(name="login_page")
-def fixture_login_page(selenium, server_url: str, org: str) -> LoginPage:
+def fixture_login_page(selenium, server_url: str, org: str) -> typing.Any:
     """Return a page object model for the login page."""
     login_page = LoginPage(selenium, server_url, org=org)
     return login_page.open()
