@@ -17,9 +17,7 @@ def test_login_wrong_user_credentials(
     assert login_page.title == "Login to Redash"
 
     with pytest.raises(TimeoutException):
-        login_page.login(
-            email=unknown_user.email, password=unknown_user.password
-        )
+        login_page.login(email=unknown_user.email, password=unknown_user.password)
 
     assert login_page.alert == "Wrong email or password."
     assert login_page.title == "Login to Redash"

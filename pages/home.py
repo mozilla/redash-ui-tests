@@ -20,14 +20,8 @@ class HomePage(Page):
         By.CSS_SELECTOR,
         ".dropdown--profile__username",
     )
-    _navbar_search_input_locator: Locator = (
-        By.CLASS_NAME,
-        "navbar__search__input",
-    )
-    _search_input_btn_locator: Locator = (
-        By.CLASS_NAME,
-        "input-group-btn .btn",
-    )
+    _navbar_search_input_locator: Locator = (By.CLASS_NAME, "navbar__search__input")
+    _search_input_btn_locator: Locator = (By.CLASS_NAME, "input-group-btn .btn")
 
     @property
     def loaded(self) -> typing.Any:
@@ -54,17 +48,13 @@ class HomePage(Page):
         return element.text
 
     def log_out(self) -> None:
-        element = self.selenium.find_element(
-            *self._profile_username_dropdown_locator
-        )
+        element = self.selenium.find_element(*self._profile_username_dropdown_locator)
         element.click()
         logout = element.find_elements_by_tag_name("li")
         logout[-1].click()
 
     def search(self, term: str) -> typing.Any:
-        element = self.selenium.find_element(
-            *self._navbar_search_input_locator
-        )
+        element = self.selenium.find_element(*self._navbar_search_input_locator)
         element.click()
         element.send_keys(term)
         button = self.selenium.find_element(*self._search_input_btn_locator)
