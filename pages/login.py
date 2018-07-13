@@ -21,10 +21,7 @@ class LoginPage(Page):
     _alert_locator: Locator = (By.CSS_SELECTOR, ".alert-danger")
     _input_email_locator: Locator = (By.ID, "inputEmail")
     _input_password_locator: Locator = (By.ID, "inputPassword")
-    _login_buttton_locator: Locator = (
-        By.CSS_SELECTOR,
-        "button[type='submit']",
-    )
+    _login_buttton_locator: Locator = (By.CSS_SELECTOR, "button[type='submit']")
 
     @property
     def title(self) -> typing.Any:

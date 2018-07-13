@@ -27,9 +27,7 @@ def _verify_url(request, server_url: str, user: User, org: str) -> None:
     """
     if server_url and request.config.option.verify_server_url:
         session = Session()
-        retries = Retry(
-            backoff_factor=0.1, status_forcelist=[500, 502, 503, 504]
-        )
+        retries = Retry(backoff_factor=0.1, status_forcelist=[500, 502, 503, 504])
         session.mount(server_url, HTTPAdapter(max_retries=retries))
         session.get(server_url, verify=False)
 
@@ -81,9 +79,7 @@ def fixture_users(
     # Check if there are any users in the db, if not, Redash needs to be set up
     response = root_session.get(f"{server_url}/api/users")
     if response.status_code == 404:
-        raise RuntimeError(
-            "Root user must be created. Please run 'make setup-redash'"
-        )
+        raise RuntimeError("Root user must be created. Please run 'make setup-redash'")
 
     for existing_user in response.json():
         for user in variables[org]["users"].values():
@@ -117,9 +113,7 @@ def fixture_create_user(
 ) -> typing.Callable:
     """Return a function to create a user."""
 
-    def create_user(
-        name: str = "", email: str = "", password: str = ""
-    ) -> User:
+    def create_user(name: str = "", email: str = "", password: str = "") -> User:
         """Create a user via the Redash API.
 
         This will use the authenticated root user requests session to create
@@ -161,9 +155,7 @@ def fixture_create_user(
         except Exception:
             raise RuntimeError(f"error sending invite: {response.text}")
 
-        return user_factory.create_user(
-            name=name, email=email, password=password
-        )
+        return user_factory.create_user(name=name, email=email, password=password)
 
     return create_user
 
