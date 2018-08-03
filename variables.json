@@ -17,6 +17,34 @@
         "name": "Default Query",
         "query": "this is a test query.",
         "schedule": 60
+      },
+      "publish": {
+        "data_source_id": "1",
+        "description": "Test publish query for redash UI tests.",
+        "name": "Publish Query",
+        "query": "this is a test query.",
+        "schedule": 60
+      },
+      "numbers": {
+        "data_source_id": "1",
+        "description": "Test query for redash UI tests.",
+        "name": "Num1337ber Query",
+        "query": "this is a number in name test query.",
+        "schedule": 60
+      },
+      "capitalization": {
+        "data_source_id": "1",
+        "description": "Test query for redash UI tests using weird capitalization.",
+        "name": "CaPitaLizatiON Query",
+        "query": "this is a test query with capitalization.",
+        "schedule": 60
+      },
+      "special-char": {
+        "data_source_id": "1",
+        "description": "Test query for redash UI tests using special characters.",
+        "name": "Special åßΩ≈ç√ Query",
+        "query": "this is a test query with special characters.",
+        "schedule": 60
       }
     },
     "users": {

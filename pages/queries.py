@@ -13,10 +13,14 @@ Locator = typing.Tuple[typing.Any, str]
 class QueryDetailPage(Page):
 
     _query_description_locator: Locator = (By.CSS_SELECTOR, ".edit-in-place p")
+    _query_publish_button_locator: Locator = (By.CSS_SELECTOR, ".btn-publish")
 
     @property
     def description(self) -> typing.Any:
         return self.find_element(*self._query_description_locator).text
+
+    def publish(self):
+        self.find_element(*self._query_publish_button_locator).click()
 
 
 class QueryRow(Region):
@@ -33,6 +37,8 @@ class QueryRow(Region):
 
 
 class QueryPage(Page):
+
+    URL_TEMPLATE = '{server_url}/{queries}'
 
     _query_table_locator: Locator = (By.TAG_NAME, "table")
     _table_row_locator: Locator = (By.TAG_NAME, "tr")
