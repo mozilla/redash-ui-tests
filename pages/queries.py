@@ -38,7 +38,7 @@ class QueryRow(Region):
 
 class QueryPage(Page):
 
-    URL_TEMPLATE = '{server_url}/{queries}'
+    URL_TEMPLATE = "{server_url}/{queries}"
 
     _query_table_locator: Locator = (By.TAG_NAME, "table")
     _table_row_locator: Locator = (By.TAG_NAME, "tr")
