@@ -23,6 +23,7 @@ def test_query_by_username(
     description: str,
     user: User,
 ) -> None:
+    """Search for query by username."""
     page = login_page.login(email=user.email, password=user.password)
     search = page.search(search_term)
     query = search.queries[0].click()
@@ -43,6 +44,7 @@ def test_query_by_description(
     description: str,
     user: User,
 ) -> None:
+    """Search for query using description."""
     page = login_page.login(email=user.email, password=user.password)
     search = page.search(description)
     query = search.queries[0].click()
@@ -56,6 +58,7 @@ def test_query_by_weird_capitalization(
     user: User,
     variables,
 ) -> None:
+    """Search for query with weird capitalization."""
     term = variables[org]["queries"]["capitalization"]
     page = login_page.login(email=user.email, password=user.password)
     search = page.search(term["name"])
@@ -70,6 +73,7 @@ def test_query_by_number(
     user: User,
     variables,
 ) -> None:
+    """Search for query with numbers in the name."""
     term = variables[org]["queries"]["numbers"]
     page = login_page.login(email=user.email, password=user.password)
     search = page.search(term['name'])
@@ -84,6 +88,7 @@ def test_query_by_special_char(
     user: User,
     variables,
 ) -> None:
+    """Search for query wioth special characters in name."""
     term = variables[org]["queries"]["special-char"]
     page = login_page.login(email=user.email, password=user.password)
     search = page.search(term['name'])
@@ -106,5 +111,19 @@ def test_search_for_unpublished_query(
     query.publish()
     page = HomePage(selenium, server_url).open()
     search = page.search("Ashleys Query")
+    query = search.queries[0].click()
+    assert query.description == "Query created by Ashley."
+
+
+def test_search_for_query_by_id(
+    create_queries,
+    login_page: LoginPage,
+    server_url,
+    selenium,
+    user: User,
+) -> None:
+    """Search for a query by its id."""
+    page = login_page.login(email=user.email, password=user.password)
+    search = page.search("1")
     query = search.queries[0].click()
     assert query.description == "Query created by Ashley."
