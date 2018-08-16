@@ -2,6 +2,8 @@
 
 """UI tests for the queries page."""
 
+import typing
+
 import pytest
 
 from models.user import User
