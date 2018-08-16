@@ -58,7 +58,7 @@ def test_query_by_weird_capitalization(
     login_page: LoginPage,
     org,
     user: User,
-    variables
+    variables,
 ) -> None:
     """Search for query with weird capitalization."""
     term = variables[org]["queries"]["capitalization"]
@@ -73,7 +73,7 @@ def test_query_by_number(
     login_page: LoginPage,
     org,
     user: User,
-    variables
+    variables,
 ) -> None:
     """Search for query with numbers in the name."""
     term = variables[org]["queries"]["numbers"]
@@ -88,7 +88,7 @@ def test_query_by_special_char(
     login_page: LoginPage,
     org,
     user: User,
-    variables
+    variables,
 ) -> None:
     """Search for query wioth special characters in name."""
     term = variables[org]["queries"]["special-char"]
@@ -103,7 +103,7 @@ def test_search_for_unpublished_query(
     login_page: LoginPage,
     server_url,
     selenium,
-    user: User
+    user: User,
 ) -> None:
     """Publish a query and then search for the unpublished one."""
     page = login_page.login(email=user.email, password=user.password)
@@ -121,7 +121,7 @@ def test_search_for_query_by_id(
     login_page: LoginPage,
     server_url,
     selenium,
-    user: User
+    user: User,
 ) -> None:
     """Search for a query by its id."""
     page = login_page.login(email=user.email, password=user.password)
@@ -135,7 +135,7 @@ def test_search_for_query_only_includes_search_result(
     login_page: LoginPage,
     server_url,
     selenium,
-    user: User
+    user: User,
 ) -> None:
     page = login_page.login(email=user.email, password=user.password)
     search = page.search("Default Query")
