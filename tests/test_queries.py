@@ -139,5 +139,5 @@ def test_search_for_query_only_includes_search_result(
 ) -> None:
     page = login_page.login(email=user.email, password=user.password)
     search = page.search("Default Query")
-    assert len(search.queries) == 1
+    assert len(search.queries) == 2
     assert search.queries[0].link.text == "Default Query"
