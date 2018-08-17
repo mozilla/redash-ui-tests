@@ -56,9 +56,9 @@ def test_query_by_description(
 def test_query_by_weird_capitalization(
     create_queries: typing.Callable[..., None],
     login_page: LoginPage,
-    org,
+    org: str,
     user: User,
-    variables,
+    variables: typing.Dict,
 ) -> None:
     """Search for query with weird capitalization."""
     term = variables[org]["queries"]["capitalization"]
@@ -71,9 +71,9 @@ def test_query_by_weird_capitalization(
 def test_query_by_number(
     create_queries: typing.Callable[..., None],
     login_page: LoginPage,
-    org,
+    org: str,
     user: User,
-    variables,
+    variables: typing.Dict,
 ) -> None:
     """Search for query with numbers in the name."""
     term = variables[org]["queries"]["numbers"]
@@ -86,9 +86,9 @@ def test_query_by_number(
 def test_query_by_special_char(
     create_queries: typing.Callable[..., None],
     login_page: LoginPage,
-    org,
+    org: str,
     user: User,
-    variables,
+    variables: typing.Dict,
 ) -> None:
     """Search for query wioth special characters in name."""
     term = variables[org]["queries"]["special-char"]
