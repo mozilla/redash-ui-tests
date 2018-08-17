@@ -16,6 +16,7 @@ from models.user import UserFactory, User
 
 @pytest.fixture(name="user_factory", scope="session")
 def fixture_user_factory() -> UserFactory:
+    """Return a UserFactory instance."""
     return UserFactory()
 
 
@@ -76,6 +77,7 @@ def fixture_users(
     server_url: str,
     user_factory: UserFactory,
 ) -> typing.List[User]:
+    """Return a List of Redash users."""
     # Check if there are any users in the db, if not, Redash needs to be set up
     response = root_session.get(f"{server_url}/api/users")
     if response.status_code == 404:
