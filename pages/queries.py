@@ -46,7 +46,7 @@ class QueryPage(Page):
     _query_table_locator: Locator = (By.CSS_SELECTOR, ".table")
     _table_row_locator: Locator = (By.TAG_NAME, "tr")
 
-    def wait_for_page_to_load(self) -> QueryPage:
+    def wait_for_page_to_load(self) -> typing.Any:
         self.wait.until(lambda _: self.is_element_displayed(*self._query_table_locator))
         return self
 
