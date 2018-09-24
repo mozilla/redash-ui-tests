@@ -14,7 +14,7 @@ from pages.login import LoginPage
 @pytest.mark.parametrize(
     "search_term, description",
     [
-        ("Default Query", "Test default query for redash UI tests."),
+        ("Default Query", "Test query for redash UI tests."),
         ("Ashleys Query", "Query created by Ashley."),
     ],
 )
@@ -35,7 +35,7 @@ def test_query_by_username(
 @pytest.mark.parametrize(
     "search_term, description",
     [
-        ("Default Query", "Test default query for redash UI tests."),
+        ("Default Query", "Test query for redash UI tests."),
         ("Ashleys Query", "Query created by Ashley."),
     ],
 )

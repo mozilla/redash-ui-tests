@@ -12,10 +12,7 @@ Locator = typing.Tuple[typing.Any, str]
 
 class QueryDetailPage(Page):
 
-    _query_description_locator: Locator = (
-        By.CSS_SELECTOR,
-        "edit-in-place:nth-child(1) > span:nth-child(1) > p:nth-child(1)",
-    )
+    _query_description_locator: Locator = (By.CSS_SELECTOR, ".edit-in-place p")
     _query_publish_button_locator: Locator = (By.CSS_SELECTOR, ".btn-publish")
 
     @property
@@ -28,7 +25,7 @@ class QueryDetailPage(Page):
 
 class QueryRow(Region):
 
-    _query_link_locator: Locator = (By.CSS_SELECTOR, ".table-main-title a")
+    _query_link_locator: Locator = (By.CSS_SELECTOR, "td a")
 
     @property
     def link(self) -> typing.Any:
@@ -43,12 +40,8 @@ class QueryPage(Page):
 
     URL_TEMPLATE = "{server_url}/{queries}"
 
-    _query_table_locator: Locator = (By.CSS_SELECTOR, ".table")
+    _query_table_locator: Locator = (By.TAG_NAME, "table")
     _table_row_locator: Locator = (By.TAG_NAME, "tr")
-
-    def wait_for_page_to_load(self) -> typing.Any:
-        self.wait.until(lambda _: self.is_element_displayed(*self._query_table_locator))
-        return self
 
     @property
     def queries(self) -> typing.List[QueryRow]:

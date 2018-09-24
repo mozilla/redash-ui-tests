@@ -133,7 +133,7 @@ def fixture_create_user(
         """
         # look up user by email and return if found. If not, create user.
         response = root_session.get(f"{server_url}/api/users")
-        for user in response.json()["results"]:
+        for user in response.json():
             if user["email"] == email:
                 return user_factory.create_user(
                     name=name, password=password, email=email, id=user["id"]
