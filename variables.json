@@ -13,7 +13,7 @@
       },
       "default": {
         "data_source_id": "1",
-        "description": "Test query for redash UI tests.",
+        "description": "Test default query for redash UI tests.",
         "name": "Default Query",
         "query": "this is a test query.",
         "schedule": 60
