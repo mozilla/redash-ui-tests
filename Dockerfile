@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 # Set target versions for dependencies
 ENV FIREFOX_VERSION=61.0 \
     GECKODRIVER_VERSION=0.23.0 \
-    PIPENV_VERSION=11.7.2
+    PIPENV_VERSION=2018.10.13
 
 # Install requirements to install tools
 RUN dependencies=' \
