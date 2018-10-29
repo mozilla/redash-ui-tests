@@ -64,6 +64,7 @@ jobs:
           name: Install dependencies
           command: |
             pip install --user -r pipenv.txt
+            pipenv lock --clear --pre
             pipenv install --dev
       - run:
           name: Flake8

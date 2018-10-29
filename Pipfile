@@ -1,21 +1,28 @@
 [[source]]
+
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
+
 [packages]
+
 pytest = "*"
 pytest-selenium = "*"
 pypom = "*"
 pytest-variables = "*"
 pytest-html = "*"
-pycodestyle = "==2.3.1"
+pycodestyle = "==2.4.0"
 pyflakes = "==2.0.0"
 
+
 [dev-packages]
+
 flake8 = "*"
 black = "*"
 mypy = "*"
 
+
 [requires]
+
 python_version = "3.6"

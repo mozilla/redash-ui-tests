@@ -53,6 +53,7 @@ WORKDIR $HOME/src
 USER user
 
 # Install dependencies under Python 3.6
+RUN pipenv lock --clear --pre
 RUN pipenv install --python=$(which python3.6)
 
 ENTRYPOINT [ "pipenv", "run" ]
