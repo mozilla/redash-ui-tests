@@ -22,6 +22,7 @@ services:
       PYTHONUNBUFFERED: 0
       REDASH_LOG_LEVEL: "INFO"
       REDASH_REDIS_URL: "redis://redis:6379/0"
+      REDASH_THROTTLE_LOGIN_PATTERN: "100/hour"
       REDASH_DATABASE_URL: "postgresql://postgres@postgres/postgres"
       REDASH_GOOGLE_CLIENT_ID: "dummy"
       REDASH_GOOGLE_CLIENT_SECRET: "dummy"

@@ -4,6 +4,13 @@
       "ui-tests"
     ],
     "queries": {
+      "archive-query": {
+        "data_source_id": "1",
+        "description": "Test archiving a  query for redash UI tests.",
+        "name": "Archive Query",
+        "query": "this is a test query.",
+        "schedule": 60
+      },
       "ashleys-query": {
         "data_source_id": "1",
         "description": "Query created by Ashley.",
@@ -11,10 +18,23 @@
         "query": "this is a test query for ashley.",
         "schedule": 120
       },
+      "blank": {
+        "data_source_id": "1",
+        "name": "Blank Query",
+        "query": "this is a test query.",
+        "schedule": 60
+      },
       "default": {
         "data_source_id": "1",
         "description": "Test default query for redash UI tests.",
         "name": "Default Query",
+        "query": "this is a test query.",
+        "schedule": 60
+      },
+      "edit-query": {
+        "data_source_id": "1",
+        "description": "Test edit query title for redash UI tests.",
+        "name": "Edit Query",
         "query": "this is a test query.",
         "schedule": 60
       },

@@ -101,12 +101,12 @@ def test_query_by_special_char(
 def test_search_for_unpublished_query(
     create_queries: typing.Callable[..., None],
     login_page: LoginPage,
-    server_url,
+    server_url: str,
     selenium,
-    user: User,
+    root_user: User,
 ) -> None:
     """Publish a query and then search for the unpublished one."""
-    page = login_page.login(email=user.email, password=user.password)
+    page = login_page.login(email=root_user.email, password=root_user.password)
     search = page.search("Publish Query")
     query = search.queries[0].click()
     query.publish()
@@ -119,13 +119,13 @@ def test_search_for_unpublished_query(
 def test_search_for_query_by_id(
     create_queries: typing.Callable[..., None],
     login_page: LoginPage,
-    server_url,
+    server_url: str,
     selenium,
     user: User,
 ) -> None:
     """Search for a query by its id."""
     page = login_page.login(email=user.email, password=user.password)
-    search = page.search("1")
+    search = page.search("2")
     query = search.queries[0].click()
     assert query.description == "Query created by Ashley."
 
@@ -133,7 +133,7 @@ def test_search_for_query_by_id(
 def test_search_for_query_only_includes_search_result(
     create_queries: typing.Callable[..., None],
     login_page: LoginPage,
-    server_url,
+    server_url: str,
     selenium,
     user: User,
 ) -> None:
@@ -141,3 +141,97 @@ def test_search_for_query_only_includes_search_result(
     search = page.search("Default Query")
     assert len(search.queries) == 2
     assert search.queries[0].link.text == "Default Query"
+
+
+def test_change_query_title(
+    create_queries: typing.Callable[..., None],
+    login_page: LoginPage,
+    server_url: str,
+    selenium,
+    root_user: User,
+    variables: typing.Dict,
+) -> None:
+    page = login_page.login(email=root_user.email, password=root_user.password)
+    query_specs = variables["default"]["queries"]["edit-query"]
+    query_name = query_specs["name"]
+    search = page.search(query_name)
+    query = search.queries[0].click()
+    assert query.title == query_name
+    query.edit_title("NEW")
+    assert query.title == f"{query_name} NEW"
+
+
+def test_change_query_description(
+    create_queries: typing.Callable[..., None],
+    login_page: LoginPage,
+    server_url: str,
+    selenium,
+    root_user: User,
+) -> None:
+    page = login_page.login(email=root_user.email, password=root_user.password)
+    search = page.search("Blank Query")
+    query = search.queries[0].click()
+    query.edit_description("This is a description")
+    assert query.description == "This is a description"
+
+
+def test_edit_query_description(
+    create_queries: typing.Callable[..., None],
+    login_page: LoginPage,
+    server_url: str,
+    selenium,
+    root_user: User,
+    variables: typing.Dict,
+) -> None:
+    default_description = variables["default"]["queries"]["default"]["description"]
+    page = login_page.login(email=root_user.email, password=root_user.password)
+    search = page.search("Default Query")
+    query = search.queries[0].click()
+    assert query.description == default_description
+    query.edit_description(" NEW NEW")
+    assert query.description == f"{default_description} NEW NEW"
+
+
+def test_edit_query_source(
+    create_queries: typing.Callable[..., None],
+    login_page: LoginPage,
+    server_url: str,
+    selenium,
+    root_user: User,
+    variables: typing.Dict,
+) -> None:
+    page = login_page.login(email=root_user.email, password=root_user.password)
+    search = page.search("Default Query")
+    query = search.queries[0].click()
+    query.edit_source_button.click()
+    assert "/source" in selenium.current_url
+
+
+def test_query_fork(
+    create_queries: typing.Callable[..., None],
+    login_page: LoginPage,
+    server_url: str,
+    selenium,
+    root_user: User,
+    variables: typing.Dict,
+) -> None:
+    page = login_page.login(email=root_user.email, password=root_user.password)
+    search = page.search("Default Query")
+    query = search.queries[0].click()
+    fork_query = query.click_dropdown_menu(text="Fork")
+    assert "Copy of (#4)" in fork_query.title
+
+
+def test_query_archive(
+    create_queries: typing.Callable[..., None],
+    login_page: LoginPage,
+    server_url: str,
+    selenium,
+    root_user: User,
+    variables: typing.Dict,
+) -> None:
+    page = login_page.login(email=root_user.email, password=root_user.password)
+    search = page.search("Archive Query")
+    query = search.queries[0].click()
+    query.click_dropdown_menu(text="Archive")
+    assert query.query_tag == "Archived"
