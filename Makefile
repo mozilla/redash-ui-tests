@@ -16,9 +16,10 @@ build: clean ## Build Docker image
 docker-ui-tests: clean ## Run tests in container and copy report.html
 	@docker run \
 		--net="host" \
+		--name "redash-ui-tests" \
 		--env REDASH_SERVER_URL="${REDASH_SERVER_URL}" \
 		"${DOCKER_NAME}:${DOCKER_TAG}"
-	@docker cp ui-tests:/home/user/src/report.html ./report.html
+	@docker cp redash-ui-tests:/home/user/src/report.html ./report.html
 
 .PHONY: ui-tests
 ui-tests: clean ## Run tests outside of container
