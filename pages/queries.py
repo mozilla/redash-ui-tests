@@ -19,7 +19,7 @@ class QueryDetailPage(Page):
     )
     _query_description_locator: Locator = (
         By.CSS_SELECTOR,
-        "edit-in-place:nth-child(1) > span:nth-child(1) > p:nth-child(1)",
+        "div.query-metadata:nth-child(3) > edit-in-place:nth-child(1)",
     )
     _query_description_blank_locator: Locator = (
         By.CSS_SELECTOR,
@@ -66,7 +66,7 @@ class QueryDetailPage(Page):
         for item in (i for i in items if i.text in text):
             if text == "Fork":
                 item.click()
-                return QueryDetailPage(self.selenium, self.base_url)
+                return QueryDetailPage(self.selenium, self.base_url).wait_for_page_to_load()
             if text == "Archive":
                 item.click()
                 self.find_element(*self._query_modal_archive_locator).click()
