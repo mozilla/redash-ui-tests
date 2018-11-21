@@ -14,7 +14,6 @@ build: clean ## Build Docker image
 
 .PHONY: docker-ui-tests
 docker-ui-tests: clean ## Run tests in container and copy report.html
-	@docker rm redash-ui-tests
 	@docker run \
 		--net="host" \
 		--name "redash-ui-tests" \
