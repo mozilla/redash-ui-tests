@@ -66,7 +66,8 @@ class QueryDetailPage(Page):
         for item in (i for i in items if i.text in text):
             if text == "Fork":
                 item.click()
-                return QueryDetailPage(self.selenium, self.base_url).wait_for_page_to_load()
+                page = QueryDetailPage(self.selenium, self.base_url)
+                return page.wait_for_page_to_load()
             if text == "Archive":
                 item.click()
                 self.find_element(*self._query_modal_archive_locator).click()
