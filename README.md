@@ -44,6 +44,6 @@ Check out who has already contributed to **redash-ui-tests**
 [first]: https://github.com/mozilla/redash-ui-tests/labels/good%20first%20issue
 [git]: https://git-scm.com/
 [redash help]: https://redash.io/help/
-[redash]: https://wiki.mozilla.org/Telemetry/Custom_dashboards_with_re:dash
+[redash]: https://docs.telemetry.mozilla.org/tools/stmo.html
 [tests]: https://github.com/mozilla/redash-ui-tests/issues?q=is%3Aissue+is%3Aopen+label%3Atests
 [docs]: https://redash-ui-tests.readthedocs.io/en/latest/
