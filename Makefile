@@ -55,7 +55,7 @@ setup-redash: clean ## Setup redash instance
 		--rm server /app/manage.py ds new \
 		"ui-tests" \
 		--type "url" \
-		--options '{"title": "uitests"}'
+		--options '{"url": "uitests"}'
 
 .PHONY: bash
 bash: ## Run bash in container as user
