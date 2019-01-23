@@ -219,6 +219,7 @@ def test_query_fork(
     search = page.search("Default Query")
     query = search.queries[0].click()
     fork_query = query.click_dropdown_menu(text="Fork")
+    selenium.switch_to.window(selenium.window_handles[-1])
     assert "Copy of (#4)" in fork_query.title
 
 
