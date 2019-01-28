@@ -13,7 +13,7 @@ pypom = "*"
 pytest-variables = "*"
 pytest-html = "*"
 pycodestyle = "==2.4.0"
-pyflakes = "==2.0.0"
+pyflakes = "==2.1.0"
 
 
 [dev-packages]
