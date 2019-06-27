@@ -36,6 +36,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Update Pip
+          command: pip install --upgrade pip
+      - run:
           name: Install Docker Compose
           command: |
             set -x
