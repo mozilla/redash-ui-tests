@@ -2,6 +2,7 @@ version: 2.0
 jobs:
   build-deploy: # build for the master branch
     machine: true
+      image: ubuntu-1604:201903-01
     working_directory: ~/redash-ui-tests
     steps:
       - checkout
@@ -15,6 +16,7 @@ jobs:
             docker push mozilla/redash-ui-tests:latest
   build-release: # build for tags
     machine: true
+      image: ubuntu-1604:201903-01
     working_directory: ~/redash-ui-tests
     steps:
       - checkout
@@ -29,6 +31,7 @@ jobs:
   integration_tests:
     working_directory: ~/redash-ui-tests
     machine: true
+      image: ubuntu-1604:201903-01
     steps:
       - checkout
       - run:
