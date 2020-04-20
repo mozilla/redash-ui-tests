@@ -174,10 +174,10 @@
         },
         "zope.deferredimport": {
             "hashes": [
-                "sha256:2ddef5a7ecfff132a2dd796253366ecf9748a446e30f1a0b3a636aec9d9c05c5",
-                "sha256:4aae9cbacb2146cca58e62be0a914f0cec034d3b2d41135ea212ca8a96f4b5ec"
+                "sha256:57b2345e7b5eef47efcd4f634ff16c93e4265de3dcf325afc7315ade48d909e1",
+                "sha256:9a0c211df44aa95f1c4e6d2626f90b400f56989180d3ef96032d708da3d23e0a"
             ],
-            "version": "==4.3"
+            "version": "==4.3.1"
         },
         "zope.deprecation": {
             "hashes": [
